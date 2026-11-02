@@ -6,7 +6,14 @@ import "lenis/dist/lenis.css";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-const LENIS_OPTIONS = { lerp: 0.1, autoRaf: false, syncTouch: true };
+// Touch keeps the OS scroller: smoothing it fights the platform and feels laggy.
+const LENIS_OPTIONS = {
+  lerp: 0.095,
+  wheelMultiplier: 1,
+  smoothWheel: true,
+  syncTouch: false,
+  autoRaf: false,
+};
 
 /**
  * Drives Lenis from GSAP's ticker so smooth scrolling and ScrollTrigger share

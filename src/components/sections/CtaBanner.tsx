@@ -15,7 +15,7 @@ export function CtaBanner() {
     <section
       ref={scope}
       aria-labelledby="cta-title"
-      className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 md:py-28"
+      className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 defer-render [--defer-h:440px] md:py-28"
     >
       <Container className="text-center">
         <p data-reveal className="eyebrow text-on-dark">

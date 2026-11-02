@@ -53,7 +53,7 @@ export function ResultCard({
   return (
     <article
       className={cn(
-        "flex flex-col overflow-hidden rounded-3xl bg-white shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift",
+        "flex flex-col overflow-hidden rounded-3xl bg-white shadow-soft transition-[transform,box-shadow] duration-300 contain-card hover:-translate-y-1 hover:shadow-lift",
         selected && "ring-2 ring-teal",
       )}
     >

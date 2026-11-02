@@ -1,33 +1,43 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Compass, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { navLinks, site } from "@/data/site";
-import { useScrolled } from "@/hooks/useScrolled";
 import { useScrollTo } from "@/hooks/useScrollTo";
-import { cn } from "@/lib/utils";
+import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 const SCROLL_THRESHOLD = 80;
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const scrolled = useScrolled(SCROLL_THRESHOLD);
+  const header = useRef<HTMLElement>(null);
   const scrollTo = useScrollTo();
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  const solid = scrolled && !menuOpen;
-  const tone = solid ? "text-ink" : "text-white";
+  // The solid state is a class written straight to the node: scrolling never
+  // triggers a React render.
+  useGSAP(
+    () => {
+      const node = header.current;
+      if (!node) return;
+      node.classList.toggle("is-solid", window.scrollY > SCROLL_THRESHOLD);
+      ScrollTrigger.create({
+        start: SCROLL_THRESHOLD,
+        end: "max",
+        onToggle: (self) => node.classList.toggle("is-solid", self.isActive),
+      });
+    },
+    { scope: header },
+  );
 
   return (
     <>
       <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300",
-          solid ? "bg-white/95 shadow-soft backdrop-blur" : "bg-transparent",
-        )}
+        ref={header}
+        className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300 [&.is-solid]:bg-ink/95"
       >
         <Container className="flex h-20 items-center justify-between">
           <a
@@ -43,12 +53,7 @@ export function Navbar() {
             <span className="grid size-10 place-items-center rounded-xl bg-teal text-white">
               <Compass className="size-6" aria-hidden="true" />
             </span>
-            <span
-              className={cn(
-                "font-display text-2xl font-semibold transition-colors",
-                tone,
-              )}
-            >
+            <span className="font-display text-2xl font-semibold text-white">
               {site.name}
             </span>
           </a>
@@ -63,10 +68,7 @@ export function Navbar() {
                       event.preventDefault();
                       scrollTo(link.href);
                     }}
-                    className={cn(
-                      "inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold transition-colors hover:text-gold",
-                      tone,
-                    )}
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold text-white transition-colors hover:text-gold"
                   >
                     {link.label}
                   </a>
@@ -78,10 +80,7 @@ export function Navbar() {
           <div className="hidden items-center gap-6 lg:flex">
             <a
               href={site.phoneHref}
-              className={cn(
-                "inline-flex min-h-11 items-center gap-2 text-sm font-semibold transition-colors hover:text-gold",
-                tone,
-              )}
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-gold"
             >
               <Phone className="size-4" aria-hidden="true" />
               {site.phone}
@@ -103,10 +102,7 @@ export function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={cn(
-              "grid size-11 place-items-center rounded-full transition-colors lg:hidden",
-              tone,
-            )}
+            className="grid size-11 place-items-center rounded-full text-white transition-colors lg:hidden"
           >
             {menuOpen ? (
               <X className="size-6" aria-hidden="true" />

@@ -82,6 +82,17 @@
   letter-spacing: -0.015em;
 }
 
+/* Below-fold, non-pinned sections skip rendering until near the viewport. */
+@utility defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--defer-h, 800px);
+}
+
+/* Cards isolate their own layout; paint containment would clip shadows. */
+@utility contain-card {
+  contain: layout style;
+}
+
 @utility eyebrow {
   font-size: 0.75rem;
   font-weight: 700;

@@ -6,6 +6,9 @@ import { useGSAP } from "@gsap/react";
 // The only place plugins are registered; import GSAP from here everywhere.
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
+// Mobile browser chrome showing/hiding must not trigger a full refresh.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 /** matchMedia conditions shared by every animated section. */
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 export const TABLET_UP = `(min-width: 768px) and ${MOTION_OK}`;

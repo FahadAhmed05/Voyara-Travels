@@ -21,7 +21,7 @@ export function ServiceCard({
   return (
     <article
       data-reveal
-      className="flex flex-col overflow-hidden rounded-3xl bg-white shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift"
+      className="flex flex-col overflow-hidden rounded-3xl bg-white shadow-soft transition-[transform,box-shadow] duration-300 contain-card hover:-translate-y-1 hover:shadow-lift"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-teal-dark to-ink">
         <Image

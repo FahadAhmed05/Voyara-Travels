@@ -47,7 +47,7 @@ export function Testimonials() {
   return (
     <section
       id="stories"
-      className="bg-white py-24 md:py-32"
+      className="bg-white py-24 defer-render [--defer-h:1000px] md:py-32"
       aria-labelledby="stories-title"
     >
       <RevealScope>
