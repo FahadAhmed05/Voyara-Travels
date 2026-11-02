@@ -17,27 +17,27 @@ Build **Voyara Travels**, a premium travel-agency website offering four services
 
 The **traveller is the hero**; Voyara is the guide. Voice: warm, assured, second person ("your journey"), no jargon. Each section eyebrow doubles as a story chapter ("Chapter 02 — The Plan").
 
-| #   | Story beat        | Page section                                   |
-| --- | ----------------- | ---------------------------------------------- |
-| 1   | The Dream         | Hero (with booking card) + Popular Destinations |
-| 2   | The Hassle        | Pain-of-planning section                       |
-| 3   | The Guide         | Services (Visa, Flights, Hotels, Cars)         |
-| 4   | The Plan          | Three simple steps                             |
-| 5   | Proof             | Stats counters + traveller stories             |
-| 6   | The Departure     | Contact / call to action + footer              |
+| #   | Story beat    | Page section                                    |
+| --- | ------------- | ----------------------------------------------- |
+| 1   | The Dream     | Hero (with booking card) + Popular Destinations |
+| 2   | The Hassle    | Pain-of-planning section                        |
+| 3   | The Guide     | Services (Visa, Flights, Hotels, Cars)          |
+| 4   | The Plan      | Three simple steps                              |
+| 5   | Proof         | Stats counters + traveller stories              |
+| 6   | The Departure | Contact / call to action + footer               |
 
 Background rhythm: white → sand → white → ink (stats) → white.
 
 ## Milestones
 
-| Phase | Scope                                                                 | Done when                                                                                      |
-| ----- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| 1     | Plan, scaffold, tokens, fonts, shell (navbar, menu, footer), Lenis provider, UI primitives | `npm run build` green; shell renders; smooth scroll works; lint and format clean |
-| 2     | Typed mock data (`src/data`), shared types, pure filter/format helpers with Vitest tests | All six entity types populated; `search.ts` and `format.ts` covered by passing unit tests |
-| 3     | Booking widget (tabs, forms, result lists, empty states, toasts)      | All four services searchable end to end against mock data; keyboard accessible                  |
-| 4     | Page sections (hero, destinations, hassle, services, plan, stats, stories, contact) | Full page assembled in story order; responsive at 360 / 768 / 1280 px                  |
-| 5     | GSAP animation layer (hero SplitText, scroll reveals, counters, hovers) | Animations only touch transform/opacity; reduced-motion respected; no layout shift             |
-| 6     | Polish, accessibility, performance, README, Vercel deploy             | Lighthouse a11y ≥ 95, build green, live URL in README, screenshots added                        |
+| Phase | Scope                                                                                      | Done when                                                                                 |
+| ----- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| 1     | Plan, scaffold, tokens, fonts, shell (navbar, menu, footer), Lenis provider, UI primitives | `npm run build` green; shell renders; smooth scroll works; lint and format clean          |
+| 2     | Typed mock data (`src/data`), shared types, pure filter/format helpers with Vitest tests   | All six entity types populated; `search.ts` and `format.ts` covered by passing unit tests |
+| 3     | Booking widget (tabs, forms, result lists, empty states, toasts)                           | All four services searchable end to end against mock data; keyboard accessible            |
+| 4     | Page sections (hero, destinations, hassle, services, plan, stats, stories, contact)        | Full page assembled in story order; responsive at 360 / 768 / 1280 px                     |
+| 5     | GSAP animation layer (hero SplitText, scroll reveals, counters, hovers)                    | Animations only touch transform/opacity; reduced-motion respected; no layout shift        |
+| 6     | Polish, accessibility, performance, README, Vercel deploy                                  | Lighthouse a11y ≥ 95, build green, live URL in README, screenshots added                  |
 
 ## Component map
 
@@ -76,9 +76,9 @@ Testimonial  { id, name, trip, quote, rating, avatar }
 
 ## Risks and mitigations
 
-| Risk                              | Mitigation                                                                                  |
-| --------------------------------- | ------------------------------------------------------------------------------------------- |
+| Risk                               | Mitigation                                                                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------- |
 | Unsplash URLs break or load slowly | Gradient background behind every image container; real alt text; `next/image` only          |
-| SplitText flash of unsplit text   | Split inside `document.fonts.ready` with `autoSplit`; hide the target until split completes |
-| Pinning misbehaves on mobile      | Pinned scenes are desktop-only via `gsap.matchMedia`                                        |
-| Reduced-motion users              | Lenis is not mounted and animations are skipped when `prefers-reduced-motion` matches       |
+| SplitText flash of unsplit text    | Split inside `document.fonts.ready` with `autoSplit`; hide the target until split completes |
+| Pinning misbehaves on mobile       | Pinned scenes are desktop-only via `gsap.matchMedia`                                        |
+| Reduced-motion users               | Lenis is not mounted and animations are skipped when `prefers-reduced-motion` matches       |
