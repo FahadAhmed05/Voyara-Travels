@@ -5,6 +5,7 @@ import { ResultsGrid } from "@/components/booking/ResultsGrid";
 import { SearchPanel } from "@/components/booking/SearchPanel";
 import { Container } from "@/components/ui/Container";
 import { useToast } from "@/components/ui/Toast";
+import { resultsHeading } from "@/lib/booking";
 import { useBookingSearch } from "@/hooks/useBookingSearch";
 import { useScrollTo } from "@/hooks/useScrollTo";
 import { useToday } from "@/hooks/useToday";
@@ -30,12 +31,17 @@ function BookingExperience({ today }: { today: string }) {
   return (
     <section id="booking" aria-label="Plan your trip" className="py-16">
       <Container>
+        <p role="status" className="sr-only">
+          {status === "loading" ? "Searching…" : ""}
+          {status === "done" && outcome ? resultsHeading(outcome) : ""}
+        </p>
         <SearchPanel booking={booking} today={today} />
         {outcome ? (
           <ResultsGrid
             outcome={outcome}
             planned={plan.planned}
             onToggle={handleToggle}
+            onReset={booking.reset}
           />
         ) : null}
       </Container>

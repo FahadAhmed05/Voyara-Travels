@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTripPlan } from "@/hooks/useTripPlan";
-import { createDefaultForms, runSearch } from "@/lib/booking";
+import { createDefaultForms, runSearch, validateForm } from "@/lib/booking";
 import type { BookingForms, SearchOutcome, SearchStatus, TabId } from "@/types";
 
 const SEARCH_DELAY_MS = 600;
@@ -20,6 +20,8 @@ export function useBookingSearch(today: string) {
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
+  const issues = validateForm(activeTab, forms);
+
   const updateForm = useCallback(
     <T extends TabId>(tab: T, patch: Partial<BookingForms[T]>) => {
       setForms((current) => ({
@@ -31,13 +33,13 @@ export function useBookingSearch(today: string) {
   );
 
   const search = useCallback(() => {
-    if (status === "loading") return;
+    if (status === "loading" || issues.length > 0) return;
     setStatus("loading");
     timer.current = window.setTimeout(() => {
       setOutcome(runSearch(activeTab, forms));
       setStatus("done");
     }, SEARCH_DELAY_MS);
-  }, [activeTab, forms, status]);
+  }, [activeTab, forms, issues.length, status]);
 
   /** Restores the active tab's defaults and clears results and the plan. */
   const reset = useCallback(() => {
@@ -56,6 +58,7 @@ export function useBookingSearch(today: string) {
     setActiveTab,
     forms,
     updateForm,
+    issues,
     status,
     outcome: outcome?.tab === activeTab ? outcome : null,
     search,

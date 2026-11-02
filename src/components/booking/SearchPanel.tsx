@@ -16,8 +16,9 @@ interface SearchPanelProps {
 }
 
 export function SearchPanel({ booking, today }: SearchPanelProps) {
-  const { activeTab, forms, updateForm, status } = booking;
+  const { activeTab, forms, updateForm, issues, status } = booking;
   const loading = status === "loading";
+  const errorId = issues.length > 0 ? "booking-issues" : undefined;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,6 +47,7 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
               <FlightFields
                 form={forms.flights}
                 today={today}
+                errorId={errorId}
                 onChange={(patch) => updateForm("flights", patch)}
               />
             ) : null}
@@ -53,6 +55,7 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
               <HotelFields
                 form={forms.hotels}
                 today={today}
+                errorId={errorId}
                 onChange={(patch) => updateForm("hotels", patch)}
               />
             ) : null}
@@ -60,6 +63,7 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
               <CarFields
                 form={forms.cars}
                 today={today}
+                errorId={errorId}
                 onChange={(patch) => updateForm("cars", patch)}
               />
             ) : null}
@@ -72,10 +76,22 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
           </div>
         </fieldset>
 
+        {issues.length > 0 ? (
+          <ul
+            id="booking-issues"
+            role="alert"
+            className="mt-4 space-y-1 rounded-2xl bg-sand px-4 py-3 text-sm font-medium text-ink"
+          >
+            {issues.map((issue) => (
+              <li key={issue}>{issue}</li>
+            ))}
+          </ul>
+        ) : null}
+
         <Button
           type="submit"
           size="lg"
-          disabled={loading}
+          disabled={loading || issues.length > 0}
           className="mt-6 w-full sm:w-auto"
         >
           {loading ? (

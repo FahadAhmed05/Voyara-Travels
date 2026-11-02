@@ -68,6 +68,36 @@ export function createDefaultForms(today: string): BookingForms {
   };
 }
 
+/** Plain-language problems that stop a search. ISO dates compare as strings. */
+export function validateForm(tab: TabId, forms: BookingForms): string[] {
+  if (tab === "flights") {
+    const { from, to, trip, depart, returnDate } = forms.flights;
+    const issues: string[] = [];
+    if (from === to) {
+      issues.push(
+        "Departure and arrival are the same city — pick two different cities.",
+      );
+    }
+    if (trip === "round-trip" && depart && returnDate && returnDate < depart) {
+      issues.push("Your return date can't be before your departure date.");
+    }
+    return issues;
+  }
+  if (tab === "hotels") {
+    const { checkIn, checkOut } = forms.hotels;
+    return checkIn && checkOut && checkOut <= checkIn
+      ? ["Check-out must be at least one day after check-in."]
+      : [];
+  }
+  if (tab === "cars") {
+    const { pickupDate, dropoffDate } = forms.cars;
+    return pickupDate && dropoffDate && dropoffDate < pickupDate
+      ? ["Drop-off can't be before pickup."]
+      : [];
+  }
+  return [];
+}
+
 export function runSearch(tab: TabId, forms: BookingForms): SearchOutcome {
   switch (tab) {
     case "flights": {
