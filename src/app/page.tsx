@@ -5,6 +5,9 @@ import { Destinations } from "@/components/sections/Destinations";
 import { HassleStrip } from "@/components/sections/HassleStrip";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
+import { Stats } from "@/components/sections/Stats";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { ThePlan } from "@/components/sections/ThePlan";
 
 export default function Home() {
   return (
@@ -19,6 +22,9 @@ export default function Home() {
         <HassleStrip />
         <Services />
         <Destinations />
+        <ThePlan />
+        <Stats />
+        <Testimonials />
       </main>
       <Footer />
     </>
