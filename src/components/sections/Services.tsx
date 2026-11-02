@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   BedDouble,
   CarFront,
@@ -15,6 +16,7 @@ import { flights } from "@/data/flights";
 import { hotels } from "@/data/hotels";
 import { services } from "@/data/services";
 import { visas } from "@/data/visas";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useStartBooking } from "@/hooks/useStartBooking";
 import type { TabId } from "@/types";
 
@@ -42,9 +44,12 @@ const pricing: Record<TabId, { from: number; unit: string }> = {
 
 export function Services() {
   const startBooking = useStartBooking();
+  const scope = useRef<HTMLElement>(null);
+  useScrollReveal(scope);
 
   return (
     <section
+      ref={scope}
       id="services"
       className="bg-sand py-24 md:py-32"
       aria-labelledby="services-title"

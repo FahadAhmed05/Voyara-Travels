@@ -1,3 +1,4 @@
+import { RevealScope } from "@/components/motion/RevealScope";
 import { Container } from "@/components/ui/Container";
 import { marqueePlaces } from "@/data/story";
 
@@ -25,27 +26,29 @@ export function HassleStrip() {
       aria-labelledby="hassle-title"
       className="overflow-hidden bg-white py-24 md:py-32"
     >
-      <Container className="text-center">
-        <p data-reveal className="eyebrow text-teal">
-          Chapter 02 — The Hassle
-        </p>
-        <h2
-          id="hassle-title"
-          data-reveal
-          className="mx-auto mt-4 max-w-3xl text-section italic"
-        >
-          Planning a trip shouldn&rsquo;t feel like a second job.
-        </h2>
-        <p data-reveal className="mx-auto mt-5 max-w-xl text-lg">
-          Visas, fares, hotels, drivers — the hundred small things that stand
-          between you and the airport.
-        </p>
-      </Container>
+      <RevealScope>
+        <Container className="text-center">
+          <p data-reveal className="eyebrow text-teal">
+            Chapter 02 — The Hassle
+          </p>
+          <h2
+            id="hassle-title"
+            data-reveal
+            className="mx-auto mt-4 max-w-3xl text-section italic"
+          >
+            Planning a trip shouldn&rsquo;t feel like a second job.
+          </h2>
+          <p data-reveal className="mx-auto mt-5 max-w-xl text-lg">
+            Visas, fares, hotels, drivers — the hundred small things that stand
+            between you and the airport.
+          </p>
+        </Container>
 
-      <div className="group mt-16 flex w-max animate-marquee hover:[animation-play-state:paused]">
-        <PlaceList />
-        <PlaceList hidden />
-      </div>
+        <div className="group mt-16 flex w-max animate-marquee hover:[animation-play-state:paused]">
+          <PlaceList />
+          <PlaceList hidden />
+        </div>
+      </RevealScope>
     </section>
   );
 }

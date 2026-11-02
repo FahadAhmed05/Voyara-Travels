@@ -8,14 +8,15 @@ interface DestinationCardProps {
   destination: Destination;
   /** Layout classes: column span and aspect ratio. */
   className?: string;
-  priority?: boolean;
+  /** Lets the photo drift inside its frame (set up by the parent section). */
+  parallax?: boolean;
   onSelect: () => void;
 }
 
 export function DestinationCard({
   destination,
   className,
-  priority,
+  parallax,
   onSelect,
 }: DestinationCardProps) {
   return (
@@ -27,14 +28,21 @@ export function DestinationCard({
       )}
     >
       <div data-image-mask className="absolute inset-0 overflow-hidden">
-        <Image
-          src={destination.image}
-          alt={destination.alt}
-          fill
-          priority={priority}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        <div
+          data-parallax={parallax ? "" : undefined}
+          className={cn(
+            "absolute inset-x-0",
+            parallax ? "-inset-y-[10%]" : "inset-y-0",
+          )}
+        >
+          <Image
+            src={destination.image}
+            alt={destination.alt}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
 

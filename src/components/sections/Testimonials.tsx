@@ -1,3 +1,4 @@
+import { RevealScope } from "@/components/motion/RevealScope";
 import { Container } from "@/components/ui/Container";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -49,39 +50,41 @@ export function Testimonials() {
       className="bg-white py-24 md:py-32"
       aria-labelledby="stories-title"
     >
-      <Container>
-        <SectionHeading
-          eyebrow="Chapter 05 — Their Stories"
-          title="Travellers who simply went."
-          titleId="stories-title"
-          description="Real trips, in their own words — the small details are the point."
-        />
+      <RevealScope>
+        <Container>
+          <SectionHeading
+            eyebrow="Chapter 05 — Their Stories"
+            title="Travellers who simply went."
+            titleId="stories-title"
+            description="Real trips, in their own words — the small details are the point."
+          />
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-5">
-          <figure
-            data-reveal
-            className="rounded-3xl bg-ink p-8 shadow-lift md:p-12 lg:col-span-3"
-          >
-            <blockquote className="font-display text-2xl leading-snug text-white italic md:text-3xl">
-              &ldquo;{featured.quote}&rdquo;
-            </blockquote>
-            <Traveller testimonial={featured} index={0} dark />
-          </figure>
+          <div className="mt-16 grid gap-6 lg:grid-cols-5">
+            <figure
+              data-reveal
+              className="rounded-3xl bg-ink p-8 shadow-lift md:p-12 lg:col-span-3"
+            >
+              <blockquote className="font-display text-2xl leading-snug text-white italic md:text-3xl">
+                &ldquo;{featured.quote}&rdquo;
+              </blockquote>
+              <Traveller testimonial={featured} index={0} dark />
+            </figure>
 
-          <div className="grid gap-6 lg:col-span-2">
-            {others.map((testimonial, index) => (
-              <figure
-                key={testimonial.id}
-                data-reveal
-                className="rounded-3xl bg-sand p-6 shadow-soft md:p-8"
-              >
-                <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
-                <Traveller testimonial={testimonial} index={index + 1} />
-              </figure>
-            ))}
+            <div className="grid gap-6 lg:col-span-2">
+              {others.map((testimonial, index) => (
+                <figure
+                  key={testimonial.id}
+                  data-reveal
+                  className="rounded-3xl bg-sand p-6 shadow-soft md:p-8"
+                >
+                  <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
+                  <Traveller testimonial={testimonial} index={index + 1} />
+                </figure>
+              ))}
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </RevealScope>
     </section>
   );
 }

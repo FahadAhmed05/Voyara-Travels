@@ -1,14 +1,19 @@
 "use client";
 
+import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useStartBooking } from "@/hooks/useStartBooking";
 
 export function CtaBanner() {
   const startBooking = useStartBooking();
+  const scope = useRef<HTMLElement>(null);
+  useScrollReveal(scope);
 
   return (
     <section
+      ref={scope}
       aria-labelledby="cta-title"
       className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 md:py-28"
     >

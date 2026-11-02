@@ -9,3 +9,11 @@ export function formatPKR(amount: number): string {
 export function pluralise(count: number, word: string): string {
   return `${count} ${count === 1 ? word : `${word}s`}`;
 }
+
+/** Groups digits the en-PK way and fixes the number of decimals, e.g. 12,000 or 4.9. */
+export function formatNumber(value: number, decimals = 0): string {
+  return value.toLocaleString("en-PK", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
