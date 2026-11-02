@@ -112,3 +112,59 @@ export interface VisaQuery {
   country?: string;
   type?: VisaType | "Any";
 }
+
+export type TripType = "round-trip" | "one-way";
+export type Processing = "Standard" | "Express";
+
+export interface FlightForm {
+  trip: TripType;
+  from: string;
+  to: string;
+  depart: string;
+  returnDate: string;
+  passengers: number;
+  cabin: Cabin;
+}
+
+export interface HotelForm {
+  destination: string;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
+  rooms: number;
+}
+
+export interface CarForm {
+  pickupCity: string;
+  pickupDate: string;
+  dropoffDate: string;
+  type: CarType | "Any";
+}
+
+export interface VisaForm {
+  country: string;
+  type: VisaType;
+  processing: Processing;
+  applicants: number;
+}
+
+export interface BookingForms {
+  flights: FlightForm;
+  hotels: HotelForm;
+  cars: CarForm;
+  visa: VisaForm;
+}
+
+export type SearchStatus = "idle" | "loading" | "done";
+
+/** Results plus the form snapshot they were produced from. */
+export type SearchOutcome =
+  | { tab: "flights"; items: Flight[]; form: FlightForm }
+  | { tab: "hotels"; items: Hotel[]; form: HotelForm }
+  | { tab: "cars"; items: Car[]; form: CarForm }
+  | { tab: "visa"; items: VisaPackage[]; form: VisaForm };
+
+export interface SelectOption<T extends string = string> {
+  value: T;
+  label: string;
+}

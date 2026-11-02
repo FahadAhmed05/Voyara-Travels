@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { BookingSearch } from "@/components/sections/BookingSearch";
 import { Container } from "@/components/ui/Container";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
             <div aria-hidden="true" className="mt-12 h-72 md:h-56" />
           </Container>
         </section>
+        <BookingSearch />
       </main>
       <Footer />
     </>
