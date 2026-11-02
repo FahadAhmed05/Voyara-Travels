@@ -33,7 +33,7 @@ export function ContactSection() {
       <RevealScope>
         <Container className="grid gap-12 lg:grid-cols-5 lg:gap-16">
           <div data-reveal className="lg:col-span-2">
-            <p className="eyebrow text-teal">Chapter 06 — The Departure</p>
+            <p className="eyebrow text-teal-dark">Chapter 06 — The Departure</p>
             <h2 id="contact-title" className="mt-3 text-section">
               Let&rsquo;s talk about your trip.
             </h2>
@@ -55,7 +55,7 @@ export function ContactSection() {
                     {href ? (
                       <a
                         href={href}
-                        className="font-medium text-ink transition-colors hover:text-teal"
+                        className="inline-flex min-h-11 items-center font-medium text-ink transition-colors hover:text-teal"
                       >
                         {value}
                       </a>

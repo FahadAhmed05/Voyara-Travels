@@ -23,10 +23,13 @@ function LinkColumn({
   return (
     <div>
       <h2 className={columnTitle}>{title}</h2>
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-3">
         {links.map((link) => (
           <li key={link.label}>
-            <a href={link.href} className="transition-colors hover:text-gold">
+            <a
+              href={link.href}
+              className="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-gold"
+            >
               {link.label}
             </a>
           </li>
@@ -41,7 +44,7 @@ export function Footer() {
     <footer className="bg-ink text-on-dark">
       <Container className="grid gap-12 py-20 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <a href="#home" className="flex items-center gap-2.5">
+          <a href="#home" className="flex min-h-11 items-center gap-2.5">
             <span className="grid size-10 place-items-center rounded-xl bg-teal text-white">
               <Compass className="size-6" aria-hidden="true" />
             </span>
@@ -61,7 +64,7 @@ export function Footer() {
                   aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="grid size-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-teal"
+                  className="grid size-11 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-teal"
                 >
                   <SocialIcon platform={social.platform} />
                 </a>
@@ -91,11 +94,21 @@ export function Footer() {
           <ul className="flex flex-col gap-2 sm:flex-row sm:gap-6">
             <li className="inline-flex items-center gap-2">
               <Phone className="size-4 text-gold" aria-hidden="true" />
-              <a href={site.phoneHref}>{site.phone}</a>
+              <a
+                href={site.phoneHref}
+                className="inline-flex min-h-11 items-center"
+              >
+                {site.phone}
+              </a>
             </li>
             <li className="inline-flex items-center gap-2">
               <Mail className="size-4 text-gold" aria-hidden="true" />
-              <a href={`mailto:${site.email}`}>{site.email}</a>
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex min-h-11 items-center"
+              >
+                {site.email}
+              </a>
             </li>
             <li className="inline-flex items-center gap-2">
               <MapPin className="size-4 text-gold" aria-hidden="true" />

@@ -119,13 +119,17 @@ export function Hero({ children }: { children: ReactNode }) {
             sizes="100vw"
             className="object-cover"
           />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/55 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/20 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-transparent to-transparent" />
         </div>
 
         <Container className="relative">
-          <p data-hero="eyebrow" className="eyebrow text-gold">
-            ✦ Rated 4.9 by 12,000+ travellers
+          <p data-hero="eyebrow" className="eyebrow text-white">
+            <span aria-hidden="true" className="text-gold">
+              ✦
+            </span>{" "}
+            Rated 4.9 by 12,000+ travellers
           </p>
           <h1 data-hero="title" className="mt-5 max-w-3xl text-hero text-white">
             The world is waiting.{" "}

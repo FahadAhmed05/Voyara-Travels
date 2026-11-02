@@ -63,6 +63,40 @@ describe("validateForm", () => {
   });
 });
 
+describe("validateForm date checks", () => {
+  const today = "2026-11-02";
+
+  it("asks for dates that were cleared", () => {
+    const cleared = { ...forms.flights, depart: "" };
+    const issues = validateForm(
+      "flights",
+      { ...forms, flights: cleared },
+      today,
+    );
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0].field).toBe("dates");
+  });
+
+  it("rejects a departure that has already passed", () => {
+    const past = {
+      ...forms.flights,
+      depart: "2026-10-01",
+      returnDate: "2026-10-05",
+    };
+
+    expect(
+      validateForm("flights", { ...forms, flights: past }, today),
+    ).toHaveLength(1);
+  });
+
+  it("skips date checks until the client date is known", () => {
+    const cleared = { ...forms.hotels, checkIn: "", checkOut: "" };
+
+    expect(validateForm("hotels", { ...forms, hotels: cleared })).toEqual([]);
+  });
+});
+
 describe("runSearch and resultsHeading", () => {
   it("finds Karachi → Dubai economy flights", () => {
     const outcome = runSearch("flights", forms);

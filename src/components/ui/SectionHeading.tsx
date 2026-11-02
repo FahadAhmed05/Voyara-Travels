@@ -29,7 +29,7 @@ export function SectionHeading({
         className,
       )}
     >
-      <p className={cn("eyebrow", dark ? "text-gold" : "text-teal")}>
+      <p className={cn("eyebrow", dark ? "text-gold" : "text-teal-dark")}>
         {eyebrow}
       </p>
       <h2

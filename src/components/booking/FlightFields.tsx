@@ -43,7 +43,7 @@ export function FlightFields({
             aria-checked={form.trip === option.value}
             onClick={() => onChange({ trip: option.value })}
             className={cn(
-              "rounded-full px-4 py-1.5 text-sm font-semibold transition-[background-color,color] duration-200",
+              "min-h-11 rounded-full px-5 py-1.5 text-sm font-semibold transition-[background-color,color] duration-200",
               form.trip === option.value
                 ? "bg-ink text-white"
                 : "text-ink hover:text-teal",

@@ -21,7 +21,7 @@ export function useBookingSearch(today: string) {
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  const issues = validateForm(activeTab, forms);
+  const issues = validateForm(activeTab, forms, today);
 
   const updateForm = useCallback(
     <T extends TabId>(tab: T, patch: Partial<BookingForms[T]>) => {
@@ -44,6 +44,7 @@ export function useBookingSearch(today: string) {
 
   const search = useCallback(() => {
     if (status === "loading" || issues.length > 0) return;
+    window.clearTimeout(timer.current);
     setStatus("loading");
     timer.current = window.setTimeout(() => {
       setOutcome(runSearch(activeTab, forms));

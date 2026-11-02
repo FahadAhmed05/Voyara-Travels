@@ -94,7 +94,7 @@ export function ThePlan() {
                 <div data-reveal>
                   <span
                     aria-hidden="true"
-                    className="relative mx-auto block w-fit bg-sand px-4 font-display text-6xl leading-none font-semibold text-gold md:text-7xl"
+                    className="relative mx-auto block w-fit bg-sand px-4 font-display text-6xl leading-none font-semibold text-teal-dark md:text-7xl"
                   >
                     {step.number}
                   </span>

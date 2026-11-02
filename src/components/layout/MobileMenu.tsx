@@ -35,7 +35,9 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
 
   const handleNavigate = (href: string) => {
     onClose();
-    onNavigate(href);
+    // Lenis.start() (run when the menu unmounts) cancels any scroll in flight,
+    // so navigate once the close has been committed and Lenis has resumed.
+    window.setTimeout(() => onNavigate(href), 0);
   };
 
   return (

@@ -18,7 +18,7 @@ export function CtaBanner() {
       className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 md:py-28"
     >
       <Container className="text-center">
-        <p data-reveal className="eyebrow text-gold">
+        <p data-reveal className="eyebrow text-on-dark">
           Chapter 06 — The Departure
         </p>
         <h2 id="cta-title" data-reveal className="mt-3 text-section text-white">

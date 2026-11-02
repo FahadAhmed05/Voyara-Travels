@@ -82,8 +82,12 @@ export function ResultCard({
             </span>
           ) : null}
           <div className="min-w-0 flex-1">
-            <h3 className="text-xl leading-snug font-semibold">{title}</h3>
-            {subtitle ? <p className="text-sm">{subtitle}</p> : null}
+            <h3 className="line-clamp-2 text-xl leading-snug font-semibold break-words">
+              {title}
+            </h3>
+            {subtitle ? (
+              <p className="line-clamp-1 text-sm">{subtitle}</p>
+            ) : null}
           </div>
           {!image && badge ? (
             <span className="shrink-0 rounded-full bg-mist px-3 py-1 text-xs font-bold text-teal-dark">

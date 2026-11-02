@@ -52,7 +52,7 @@ export function ContactForm() {
         className="flex h-full flex-col items-start justify-center gap-4 rounded-3xl bg-white p-8 shadow-soft md:p-10"
       >
         <CircleCheck className="size-10 text-teal" aria-hidden="true" />
-        <h3 className="text-2xl font-semibold">
+        <h3 className="text-2xl font-semibold break-words">
           Thanks, {sentName} — your journey is on our desk.
         </h3>
         <p>We&rsquo;ll call you within one working day.</p>

@@ -50,12 +50,12 @@ export function NewsletterForm() {
           autoComplete="email"
           aria-invalid={error !== null}
           aria-describedby={error ? "newsletter-error" : undefined}
-          className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white outline-none placeholder:text-on-dark/60"
+          className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-on-dark/60"
         />
         <button
           type="submit"
           aria-label="Subscribe to the newsletter"
-          className="grid size-10 shrink-0 place-items-center rounded-full bg-teal text-white transition-colors hover:bg-teal-dark"
+          className="grid size-11 shrink-0 place-items-center rounded-full bg-teal text-white transition-colors hover:bg-teal-dark"
         >
           <Send className="size-4" aria-hidden="true" />
         </button>

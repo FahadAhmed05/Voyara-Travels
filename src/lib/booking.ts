@@ -69,9 +69,29 @@ export function createDefaultForms(today: string): BookingForms {
   };
 }
 
-/** Plain-language problems that stop a search. ISO dates compare as strings. */
-export function validateForm(tab: TabId, forms: BookingForms): BookingIssue[] {
+const PAST_MESSAGE = "That date has already passed — pick today or later.";
+const MISSING_MESSAGE = "Please choose your dates so we can plan around them.";
+
+/**
+ * Plain-language problems that stop a search. ISO dates compare as strings.
+ * `today` is "" until the client knows the date, which skips the past-date and
+ * missing-date checks so the server-rendered card never shows an error.
+ */
+export function validateForm(
+  tab: TabId,
+  forms: BookingForms,
+  today = "",
+): BookingIssue[] {
   const issues: BookingIssue[] = [];
+  const dateIssue = (message: string) =>
+    issues.push({ field: "dates", message });
+
+  const checkDates = (required: string[], start: string) => {
+    if (today === "") return;
+    if (required.some((date) => date === "")) dateIssue(MISSING_MESSAGE);
+    else if (start < today) dateIssue(PAST_MESSAGE);
+  };
+
   if (tab === "flights") {
     const { from, to, trip, depart, returnDate } = forms.flights;
     if (from === to) {
@@ -81,29 +101,23 @@ export function validateForm(tab: TabId, forms: BookingForms): BookingIssue[] {
           "Departure and arrival are the same city — pick two different cities.",
       });
     }
+    checkDates(trip === "round-trip" ? [depart, returnDate] : [depart], depart);
     if (trip === "round-trip" && depart && returnDate && returnDate < depart) {
-      issues.push({
-        field: "dates",
-        message: "Your return date can't be before your departure date.",
-      });
+      dateIssue("Your return date can't be before your departure date.");
     }
   }
   if (tab === "hotels") {
     const { checkIn, checkOut } = forms.hotels;
+    checkDates([checkIn, checkOut], checkIn);
     if (checkIn && checkOut && checkOut <= checkIn) {
-      issues.push({
-        field: "dates",
-        message: "Check-out must be at least one day after check-in.",
-      });
+      dateIssue("Check-out must be at least one day after check-in.");
     }
   }
   if (tab === "cars") {
     const { pickupDate, dropoffDate } = forms.cars;
+    checkDates([pickupDate, dropoffDate], pickupDate);
     if (pickupDate && dropoffDate && dropoffDate < pickupDate) {
-      issues.push({
-        field: "dates",
-        message: "Drop-off can't be before pickup.",
-      });
+      dateIssue("Drop-off can't be before pickup.");
     }
   }
   return issues;

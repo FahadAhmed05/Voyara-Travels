@@ -26,9 +26,9 @@ export function ResultsGrid({
 
   return (
     <div id="search-results" className="pt-12">
-      <p className="font-display text-2xl font-semibold text-ink md:text-3xl">
+      <h2 className="font-display text-2xl font-semibold text-ink md:text-3xl">
         {resultsHeading(outcome)}
-      </p>
+      </h2>
       <p className="mt-1 text-sm">Demo data — no real booking is made.</p>
 
       {outcome.items.length === 0 ? (

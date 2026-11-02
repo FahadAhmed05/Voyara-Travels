@@ -12,7 +12,7 @@ interface StepperProps {
 }
 
 const buttonClass =
-  "grid size-9 place-items-center rounded-full bg-mist text-ink transition-[transform,background-color,color] duration-150 hover:bg-teal hover:text-white active:scale-90 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-mist disabled:hover:text-ink";
+  "grid size-11 place-items-center rounded-full bg-mist text-ink transition-[transform,background-color,color] duration-150 hover:bg-teal hover:text-white active:scale-90 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-mist disabled:hover:text-ink";
 
 export function Stepper({
   label,

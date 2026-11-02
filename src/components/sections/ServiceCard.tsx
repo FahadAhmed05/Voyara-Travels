@@ -37,7 +37,9 @@ export function ServiceCard({
         <span className="-mt-7 grid size-14 place-items-center rounded-2xl bg-teal text-white shadow-soft">
           <Icon className="size-7" aria-hidden="true" />
         </span>
-        <h3 className="mt-4 text-2xl font-semibold">{service.title}</h3>
+        <h3 className="mt-4 line-clamp-2 text-2xl font-semibold">
+          {service.title}
+        </h3>
         <p className="mt-2">{service.description}</p>
 
         <ul className="mt-5 space-y-2 text-sm">
@@ -55,7 +57,7 @@ export function ServiceCard({
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink/10 pt-5">
           <p className="text-sm">
             from{" "}
-            <span className="font-display text-lg font-semibold text-gold">
+            <span className="font-display text-lg font-semibold text-teal-dark">
               {formatPKR(fromPrice)}
             </span>{" "}
             {priceUnit}
@@ -64,7 +66,7 @@ export function ServiceCard({
             type="button"
             onClick={onExplore}
             aria-label={`Explore ${service.title}`}
-            className="inline-flex items-center gap-1.5 rounded-full text-sm font-bold text-teal transition-colors hover:text-teal-dark"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 text-sm font-bold text-teal transition-colors hover:text-teal-dark"
           >
             Explore
             <ArrowRight className="size-4" aria-hidden="true" />

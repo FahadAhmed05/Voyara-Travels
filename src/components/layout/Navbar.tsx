@@ -37,7 +37,7 @@ export function Navbar() {
               closeMenu();
               scrollTo("#home");
             }}
-            className="flex items-center gap-2.5"
+            className="flex min-h-11 items-center gap-2.5"
             aria-label="Voyara Travels — back to top"
           >
             <span className="grid size-10 place-items-center rounded-xl bg-teal text-white">
@@ -64,7 +64,7 @@ export function Navbar() {
                       scrollTo(link.href);
                     }}
                     className={cn(
-                      "text-sm font-semibold transition-colors hover:text-gold",
+                      "inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold transition-colors hover:text-gold",
                       tone,
                     )}
                   >
@@ -79,7 +79,7 @@ export function Navbar() {
             <a
               href={site.phoneHref}
               className={cn(
-                "inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-gold",
+                "inline-flex min-h-11 items-center gap-2 text-sm font-semibold transition-colors hover:text-gold",
                 tone,
               )}
             >

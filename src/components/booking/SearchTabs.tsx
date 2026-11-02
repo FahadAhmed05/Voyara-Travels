@@ -70,7 +70,7 @@ export function SearchTabs({ active, disabled, onChange }: SearchTabsProps) {
             onClick={() => onChange(tab.id)}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className={cn(
-              "flex items-center justify-center gap-2 rounded-full px-3 py-2.5 text-sm font-semibold transition-[background-color,color] duration-200 sm:px-6",
+              "flex min-h-11 items-center justify-center gap-2 rounded-full px-3 py-2.5 text-sm font-semibold transition-[background-color,color] duration-200 sm:px-6",
               selected ? "bg-ink text-white" : "text-ink hover:bg-white",
             )}
           >

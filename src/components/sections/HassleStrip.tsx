@@ -28,7 +28,7 @@ export function HassleStrip() {
     >
       <RevealScope>
         <Container className="text-center">
-          <p data-reveal className="eyebrow text-teal">
+          <p data-reveal className="eyebrow text-teal-dark">
             Chapter 02 — The Hassle
           </p>
           <h2

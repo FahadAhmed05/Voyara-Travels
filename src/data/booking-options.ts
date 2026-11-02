@@ -5,6 +5,7 @@ const options = <T extends string>(values: readonly T[]): SelectOption<T>[] =>
 
 export const flightOrigins = options([
   "Karachi",
+  "Skardu",
   "Lahore",
   "Islamabad",
   "Dubai",
