@@ -29,7 +29,7 @@ function BookingExperience({ today }: { today: string }) {
   };
 
   return (
-    <section id="booking" aria-label="Plan your trip" className="py-16">
+    <section id="booking" aria-label="Plan your trip" className="pb-16">
       <Container>
         <p role="status" className="sr-only">
           {status === "loading" ? "Searching…" : ""}
