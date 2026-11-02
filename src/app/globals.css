@@ -19,7 +19,30 @@
     0 2px 4px rgb(12 36 49 / 0.05), 0 12px 32px -8px rgb(12 36 49 / 0.14),
     0 32px 64px -24px rgb(12 36 49 / 0.18);
 
-  --container-page: 80rem;
+  --animate-toast-in: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-menu-rise: menu-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes menu-rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @utility text-hero {
@@ -57,6 +80,10 @@
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.7;
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
   }
 
   h1,
