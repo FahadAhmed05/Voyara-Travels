@@ -16,6 +16,10 @@ export function useScrollTo() {
       const target = document.querySelector<HTMLElement>(hash);
       if (!target) return;
       if (lenis) {
+        // Native jumps (keyboard focus, find-in-page) leave Lenis' internal
+        // position stale, and it measures the target relative to that. Re-anchor
+        // it to the real scroll position before animating.
+        lenis.scrollTo(window.scrollY, { immediate: true, force: true });
         lenis.scrollTo(target, { force: true });
       } else {
         target.scrollIntoView({ behavior: "auto", block: "start" });
