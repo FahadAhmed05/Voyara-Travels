@@ -6,7 +6,7 @@ function PlaceList({ hidden }: { hidden?: boolean }) {
   return (
     <ul
       aria-hidden={hidden}
-      className="flex shrink-0 items-center gap-8 pr-8 font-display text-5xl text-ink/30 uppercase md:text-7xl"
+      className="flex shrink-0 items-center gap-8 pr-8 font-display text-5xl text-ink/55 uppercase md:text-7xl"
     >
       {marqueePlaces.map((place) => (
         <li key={place} className="flex items-center gap-8 whitespace-nowrap">
