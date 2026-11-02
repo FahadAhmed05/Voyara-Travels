@@ -16,11 +16,9 @@ export default function Home() {
     <>
       <Navbar />
       <main className="flex-1">
-        <Hero />
-        {/* The booking card overlaps the hero's bottom edge. */}
-        <div data-hero="card" className="relative z-10 -mt-16 md:-mt-20">
+        <Hero>
           <BookingSearch />
-        </div>
+        </Hero>
         <HassleStrip />
         <Services />
         <Destinations />

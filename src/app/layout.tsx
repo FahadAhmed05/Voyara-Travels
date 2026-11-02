@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { ScrollRefresh } from "@/components/layout/ScrollRefresh";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import "./globals.css";
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${fraunces.variable} ${manrope.variable} antialiased`}
     >
       <body className="flex min-h-screen flex-col">
+        <ScrollRefresh />
         <SmoothScroll>
           <ToastProvider>{children}</ToastProvider>
         </SmoothScroll>
