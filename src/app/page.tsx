@@ -1,6 +1,8 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BookingSearch } from "@/components/sections/BookingSearch";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Destinations } from "@/components/sections/Destinations";
 import { HassleStrip } from "@/components/sections/HassleStrip";
 import { Hero } from "@/components/sections/Hero";
@@ -25,6 +27,8 @@ export default function Home() {
         <ThePlan />
         <Stats />
         <Testimonials />
+        <CtaBanner />
+        <ContactSection />
       </main>
       <Footer />
     </>

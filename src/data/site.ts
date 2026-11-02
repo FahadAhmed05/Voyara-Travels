@@ -7,7 +7,8 @@ export const site = {
   phoneHref: "tel:+923001234567",
   email: "hello@voyara.travel",
   copyrightYear: 2026,
-  address: "Office 12, Blue Area, Islamabad, Pakistan",
+  address: "Office 8, Zamzama Boulevard, DHA Phase 5, Karachi, Pakistan",
+  hours: "Mon–Sat, 9am – 7pm (PKT)",
 } as const;
 
 export const navLinks: readonly NavLink[] = [

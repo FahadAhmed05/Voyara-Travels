@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import type { SelectOption } from "@/types";
 import { cn } from "@/lib/utils";
 
-const controlClass =
+export const controlClass =
   "w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-sm font-medium text-ink transition-colors hover:border-teal/50 disabled:cursor-not-allowed disabled:bg-mist disabled:text-body/60";
 
 export function Field({
