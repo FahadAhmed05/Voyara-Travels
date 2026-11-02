@@ -124,20 +124,6 @@
   }
 }
 
-/* Lenis recommended base styles */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

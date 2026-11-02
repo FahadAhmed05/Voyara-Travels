@@ -85,7 +85,8 @@ export function Footer() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-4 py-6 text-sm md:flex-row md:items-center md:justify-between">
           <p>
-            &copy; {site.copyrightYear} {site.name} Travels. All rights reserved.
+            &copy; {site.copyrightYear} {site.name} Travels. All rights
+            reserved.
           </p>
           <ul className="flex flex-col gap-2 sm:flex-row sm:gap-6">
             <li className="inline-flex items-center gap-2">
