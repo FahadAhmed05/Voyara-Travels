@@ -39,7 +39,13 @@ export function Navbar() {
         ref={header}
         className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300 [&.is-solid]:bg-ink/95"
       >
-        <Container className="flex h-20 items-center justify-between">
+        <Container className="relative flex h-20 items-center justify-between">
+          <p
+            data-chapter
+            className="absolute bottom-1.5 left-5 hidden text-[10px] font-bold tracking-[0.18em] text-on-dark/80 uppercase md:left-8 md:block"
+          >
+            Chapter 01 — The Dream
+          </p>
           <a
             href="#home"
             onClick={(event) => {

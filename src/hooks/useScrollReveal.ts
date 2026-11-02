@@ -36,11 +36,11 @@ export function useScrollReveal(scope: RefObject<HTMLElement | null>) {
             y: 0,
             opacity: 1,
             ease: "power2.inOut",
-            stagger: 0.12,
+            stagger: 0.07,
             scrollTrigger: {
               trigger,
-              start: "top 85%",
-              end: "top 35%",
+              start: "top 95%",
+              end: "top 55%",
               scrub: 1,
             },
           });

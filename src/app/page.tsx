@@ -1,4 +1,6 @@
 import { ChapterProgress } from "@/components/layout/ChapterProgress";
+import { JourneyTracker } from "@/components/layout/JourneyTracker";
+import { PersistentEarth } from "@/components/motion/PersistentEarth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BookingSearch } from "@/components/sections/BookingSearch";
@@ -9,6 +11,7 @@ import { HassleStrip } from "@/components/sections/HassleStrip";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
 import { Stats } from "@/components/sections/Stats";
+import { TrustPractices } from "@/components/sections/TrustPractices";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { ThePlan } from "@/components/sections/ThePlan";
 
@@ -23,6 +26,8 @@ export default function Home() {
       </a>
       <Navbar />
       <ChapterProgress />
+      <JourneyTracker />
+      <PersistentEarth />
       <main id="main" className="flex-1">
         <Hero>
           <BookingSearch />
@@ -33,6 +38,7 @@ export default function Home() {
         <ThePlan />
         <Stats />
         <Testimonials />
+        <TrustPractices />
         <CtaBanner />
         <ContactSection />
       </main>

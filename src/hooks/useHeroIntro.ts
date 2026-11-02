@@ -1,23 +1,14 @@
 "use client";
 
 import type { RefObject } from "react";
-import {
-  gsap,
-  MOTION_OK,
-  ScrollTrigger,
-  SplitText,
-  TABLET_UP,
-  useGSAP,
-} from "@/lib/gsap";
-
-const CLEAR = "transform,opacity,visibility";
-
-const SCENE = { start: "top top", end: "+=110%", scrub: 1.2 } as const;
+import { gsap, SplitText, TABLET_UP, useGSAP } from "@/lib/gsap";
 
 /**
- * The hero's load-in sequence, then (tablet and up) a pinned camera scene that
- * plays on scroll in both directions. Expects `scope` to contain
- * #home and the data-hero="bg|eyebrow|title|sub|card|cue" elements.
+ * The hero's load-in and its scroll "camera". Both only run from tablet width
+ * up, with motion allowed: on phones (where mobile LCP matters most) and under
+ * reduced motion the hero is simply there from the first paint. Nothing pins
+ * the page, and the booking card is never hidden.
+ * Expects `scope` to contain #home and data-hero="bg|eyebrow|title|sub|cue".
  */
 export function useHeroIntro(scope: RefObject<HTMLElement | null>) {
   useGSAP(
@@ -29,28 +20,18 @@ export function useHeroIntro(scope: RefObject<HTMLElement | null>) {
       const section = root.querySelector<HTMLElement>("#home");
       const bg = pick("bg");
       const image = bg?.querySelector("img");
-      const [eyebrow, title, sub, card, cue] = [
-        "eyebrow",
-        "title",
-        "sub",
-        "card",
-        "cue",
-      ].map(pick);
+      const [eyebrow, title, sub, cue] = ["eyebrow", "title", "sub", "cue"].map(
+        pick,
+      );
       if (!section || !bg || !image) return;
-      if (!eyebrow || !title || !sub || !card || !cue) return;
+      if (!eyebrow || !title || !sub || !cue) return;
 
       const mm = gsap.matchMedia();
 
-      // Signature intro: bg settles, then the headline rises line by line
-      // out of its mask, followed by the supporting pieces.
-      mm.add(MOTION_OK, (_context, contextSafe) => {
+      mm.add(TABLET_UP, (_context, contextSafe) => {
         let cancelled = false;
-        // With the pinned scene the card sits below the pin spacer and is
-        // delivered by scroll instead of by the load-in.
-        const scene = window.matchMedia(TABLET_UP).matches;
 
         gsap.set([eyebrow, sub, cue], { autoAlpha: 0, y: 24 });
-        if (!scene) gsap.set(card, { autoAlpha: 0, y: 56 });
         gsap.set(title, { autoAlpha: 0 });
         gsap.fromTo(
           image,
@@ -70,7 +51,7 @@ export function useHeroIntro(scope: RefObject<HTMLElement | null>) {
             onSplit: (self) => {
               if (built) return;
               built = true;
-              const intro = gsap
+              gsap
                 .timeline({ defaults: { ease: "power3.out" } })
                 .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.2)
                 .from(
@@ -78,77 +59,30 @@ export function useHeroIntro(scope: RefObject<HTMLElement | null>) {
                   { yPercent: 110, duration: 1.1, stagger: 0.12 },
                   0.35,
                 )
-                .to(sub, { autoAlpha: 1, y: 0, duration: 0.9 }, ">-0.6");
-              if (!scene) {
-                intro.to(
-                  card,
-                  { autoAlpha: 1, y: 0, duration: 1, clearProps: CLEAR },
-                  ">-0.55",
-                );
-              }
-              intro.to(cue, { autoAlpha: 1, y: 0, duration: 0.8 }, ">-0.3");
+                .to(sub, { autoAlpha: 1, y: 0, duration: 0.9 }, ">-0.6")
+                .to(cue, { autoAlpha: 1, y: 0, duration: 0.8 }, ">-0.3");
+
+              // Scroll camera: the photo drifts slower than the page and the
+              // headline lines peel away at two speeds. Reverses on scroll up.
+              const masks = Array.from(title.children);
+              gsap
+                .timeline({
+                  defaults: { ease: "none" },
+                  scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1.2,
+                  },
+                })
+                .to(bg, { yPercent: 12, scale: 1.08, duration: 1 }, 0)
+                .to(cue, { opacity: 0, duration: 0.15 }, 0)
+                .to(masks[0], { yPercent: -18, opacity: 0.3, duration: 1 }, 0)
+                .to(masks[1], { yPercent: -30, opacity: 0.3, duration: 1 }, 0);
             },
           });
         });
         void document.fonts.ready.then(() => start());
-
-        return () => {
-          cancelled = true;
-        };
-      });
-
-      // Pinned camera scene: the photo pushes in and the headline drifts at
-      // two speeds (foreground faster than background = depth) while the page
-      // holds still; then the booking card is delivered as the hero lets go.
-      mm.add(TABLET_UP, (_context, contextSafe) => {
-        let cancelled = false;
-
-        gsap.fromTo(
-          card,
-          { y: 90, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            ease: "power2.inOut",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 100%",
-              end: "top 55%",
-              scrub: 1.2,
-            },
-          },
-        );
-
-        // Built once fonts are ready, when the headline's line masks exist.
-        const build = contextSafe!(() => {
-          if (cancelled) return;
-          const masks = Array.from(title.children);
-          gsap
-            .timeline({
-              defaults: { ease: "power2.inOut" },
-              scrollTrigger: {
-                trigger: section,
-                ...SCENE,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                // Pins measure first so everything below sees the spacer.
-                refreshPriority: 1,
-              },
-            })
-            .fromTo(
-              bg,
-              { scale: 1.22, yPercent: 0 },
-              { scale: 1.02, yPercent: 10, ease: "none", duration: 1 },
-              0,
-            )
-            .to(cue, { opacity: 0, ease: "none", duration: 0.15 }, 0)
-            .to(masks[0], { yPercent: -18, opacity: 0.25, duration: 1 }, 0)
-            .to(masks[1], { yPercent: -30, opacity: 0.25, duration: 1 }, 0);
-          // The pin spacer moves everything below: remeasure once, now.
-          ScrollTrigger.refresh();
-        });
-        void document.fonts.ready.then(() => build());
 
         return () => {
           cancelled = true;

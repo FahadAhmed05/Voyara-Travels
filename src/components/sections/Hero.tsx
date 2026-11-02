@@ -21,7 +21,7 @@ export function Hero({ children }: { children: ReactNode }) {
         id="home"
         className="relative flex min-h-[100svh] items-end overflow-hidden bg-gradient-to-br from-ink via-teal-dark to-teal pt-32 pb-32 md:pb-40"
       >
-        {/* Oversized so the pinned push-in never exposes the edges. */}
+        {/* Oversized so the scroll drift never exposes the edges. */}
         <div data-hero="bg" className="absolute inset-x-0 -top-[13%] h-[126%]">
           <Image
             src={unsplash("1573843981267-be1999ff37cd")}
@@ -38,7 +38,19 @@ export function Hero({ children }: { children: ReactNode }) {
           <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-transparent to-transparent" />
         </div>
 
-        <Container className="relative">
+        {/* Where the page-wide Earth sits while the hero is on screen. */}
+        <div
+          data-earth-anchor="hero"
+          className="pointer-events-none absolute top-[46%] right-[3%] z-0 aspect-square w-[min(44vw,560px)] -translate-y-1/2 max-md:hidden"
+        />
+        <p
+          data-earth-hud
+          className="pointer-events-none absolute right-[3%] bottom-36 z-10 w-[min(44vw,560px)] text-center text-[11px] font-bold tracking-[0.2em] text-on-dark uppercase max-md:hidden md:bottom-44"
+        >
+          Karachi → the world · pick a destination
+        </p>
+
+        <Container className="relative z-10">
           <p data-hero="eyebrow" className="eyebrow text-white">
             <span aria-hidden="true" className="text-gold">
               ✦

@@ -42,6 +42,8 @@ export function ThePlan() {
             pin: true,
             scrub: 1,
             anticipatePin: 1,
+            // Pins measure first so triggers created earlier still see the spacer.
+            refreshPriority: 1,
           },
         });
 

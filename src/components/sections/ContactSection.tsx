@@ -28,7 +28,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-sand py-24 defer-render [--defer-h:900px] md:py-32"
+      className="relative -mt-10 rounded-t-[2.5rem] bg-sand py-24 md:py-32"
       aria-labelledby="contact-title"
     >
       <RevealScope>

@@ -59,6 +59,7 @@ export const chapters: { id: string; label: string }[] = [
   { id: "plan", label: "Chapter 04 — The Plan" },
   { id: "proof", label: "Chapter 05 — The Proof" },
   { id: "stories", label: "Chapter 05 — Their Stories" },
+  { id: "trust", label: "Chapter 05 — Proof you can check" },
   { id: "departure", label: "Chapter 06 — The Departure" },
   { id: "contact", label: "Chapter 06 — The Departure" },
 ];

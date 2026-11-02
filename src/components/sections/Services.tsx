@@ -51,7 +51,7 @@ export function Services() {
     <section
       ref={scope}
       id="services"
-      className="bg-sand py-24 md:py-32"
+      className="relative -mt-10 rounded-t-[2.5rem] bg-sand py-24 md:py-32"
       aria-labelledby="services-title"
     >
       <Container>

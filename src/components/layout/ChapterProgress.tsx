@@ -16,7 +16,8 @@ export function ChapterProgress() {
     () => {
       const root = scope.current;
       const rail = root?.querySelector<HTMLElement>("[data-rail]");
-      const label = root?.querySelector<HTMLElement>("[data-chapter]");
+      // The label lives in the navbar so it never sits over page content.
+      const label = document.querySelector<HTMLElement>("[data-chapter]");
       if (!root || !rail || !label) return;
 
       chapters.forEach((chapter) => {
@@ -59,12 +60,6 @@ export function ChapterProgress() {
         data-rail
         className="fixed inset-x-0 top-20 z-40 h-0.5 origin-left scale-x-0 bg-gold"
       />
-      <p
-        data-chapter
-        className="fixed top-24 left-5 z-40 hidden rounded-full bg-ink/80 px-3 py-1 text-[11px] font-bold tracking-[0.18em] text-on-dark uppercase md:left-8 md:block"
-      >
-        {chapters[0].label}
-      </p>
     </div>
   );
 }

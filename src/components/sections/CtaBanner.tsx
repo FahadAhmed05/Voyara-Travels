@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { useChapterExit } from "@/hooks/useChapterExit";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useStartBooking } from "@/hooks/useStartBooking";
 
@@ -11,13 +12,14 @@ export function CtaBanner() {
   const startBooking = useStartBooking();
   const scope = useRef<HTMLElement>(null);
   useScrollReveal(scope);
+  useChapterExit(scope);
 
   return (
     <section
       ref={scope}
       id="departure"
       aria-labelledby="cta-title"
-      className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 defer-render [--defer-h:440px] md:py-28"
+      className="relative -mt-10 rounded-t-[2.5rem] bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 md:py-28"
     >
       <Container className="text-center">
         <Eyebrow tone="light">Chapter 06 — The Departure</Eyebrow>

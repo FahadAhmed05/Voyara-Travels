@@ -28,7 +28,7 @@ export function HassleStrip() {
       aria-labelledby="hassle-title"
       className="overflow-hidden bg-white py-24 md:py-32"
     >
-      <RevealScope>
+      <RevealScope exit>
         <Container className="text-center">
           <Eyebrow>Chapter 02 — The Hassle</Eyebrow>
           <h2

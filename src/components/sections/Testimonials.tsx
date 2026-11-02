@@ -47,10 +47,10 @@ export function Testimonials() {
   return (
     <section
       id="stories"
-      className="bg-white py-24 defer-render [--defer-h:1000px] md:py-32"
+      className="relative -mt-10 rounded-t-[2.5rem] bg-white py-24 md:py-32"
       aria-labelledby="stories-title"
     >
-      <RevealScope>
+      <RevealScope exit>
         <Container>
           <SectionHeading
             eyebrow="Chapter 05 — Their Stories"

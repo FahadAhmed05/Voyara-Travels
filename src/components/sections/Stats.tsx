@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { stats } from "@/data/story";
+import { useChapterExit } from "@/hooks/useChapterExit";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { formatNumber } from "@/lib/format";
 import { gsap, MOTION_OK, ScrollTrigger, useGSAP } from "@/lib/gsap";
@@ -11,6 +12,7 @@ import { gsap, MOTION_OK, ScrollTrigger, useGSAP } from "@/lib/gsap";
 export function Stats() {
   const scope = useRef<HTMLElement>(null);
   useScrollReveal(scope);
+  useChapterExit(scope);
 
   // Each figure counts up from 0 once, when it comes into view. The markup
   // already holds the final value, so nothing depends on this running.
@@ -54,7 +56,7 @@ export function Stats() {
       ref={scope}
       id="proof"
       aria-labelledby="stats-title"
-      className="bg-ink py-24 md:py-28"
+      className="relative -mt-10 rounded-t-[2.5rem] bg-ink py-24 md:py-28"
     >
       <Container>
         <div className="text-center">
