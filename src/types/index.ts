@@ -155,6 +155,12 @@ export interface BookingForms {
   visa: VisaForm;
 }
 
+/** `route` issues concern the places chosen, `dates` the date fields. */
+export interface BookingIssue {
+  field: "route" | "dates";
+  message: string;
+}
+
 export type SearchStatus = "idle" | "loading" | "done";
 
 /** Results plus the form snapshot they were produced from. */

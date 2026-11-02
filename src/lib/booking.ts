@@ -12,6 +12,7 @@ import {
 } from "@/lib/search";
 import type {
   BookingForms,
+  BookingIssue,
   Processing,
   SearchOutcome,
   TabId,
@@ -69,33 +70,43 @@ export function createDefaultForms(today: string): BookingForms {
 }
 
 /** Plain-language problems that stop a search. ISO dates compare as strings. */
-export function validateForm(tab: TabId, forms: BookingForms): string[] {
+export function validateForm(tab: TabId, forms: BookingForms): BookingIssue[] {
+  const issues: BookingIssue[] = [];
   if (tab === "flights") {
     const { from, to, trip, depart, returnDate } = forms.flights;
-    const issues: string[] = [];
     if (from === to) {
-      issues.push(
-        "Departure and arrival are the same city — pick two different cities.",
-      );
+      issues.push({
+        field: "route",
+        message:
+          "Departure and arrival are the same city — pick two different cities.",
+      });
     }
     if (trip === "round-trip" && depart && returnDate && returnDate < depart) {
-      issues.push("Your return date can't be before your departure date.");
+      issues.push({
+        field: "dates",
+        message: "Your return date can't be before your departure date.",
+      });
     }
-    return issues;
   }
   if (tab === "hotels") {
     const { checkIn, checkOut } = forms.hotels;
-    return checkIn && checkOut && checkOut <= checkIn
-      ? ["Check-out must be at least one day after check-in."]
-      : [];
+    if (checkIn && checkOut && checkOut <= checkIn) {
+      issues.push({
+        field: "dates",
+        message: "Check-out must be at least one day after check-in.",
+      });
+    }
   }
   if (tab === "cars") {
     const { pickupDate, dropoffDate } = forms.cars;
-    return pickupDate && dropoffDate && dropoffDate < pickupDate
-      ? ["Drop-off can't be before pickup."]
-      : [];
+    if (pickupDate && dropoffDate && dropoffDate < pickupDate) {
+      issues.push({
+        field: "dates",
+        message: "Drop-off can't be before pickup.",
+      });
+    }
   }
-  return [];
+  return issues;
 }
 
 export function runSearch(tab: TabId, forms: BookingForms): SearchOutcome {

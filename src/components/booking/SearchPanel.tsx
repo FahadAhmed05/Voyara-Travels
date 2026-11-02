@@ -18,7 +18,9 @@ interface SearchPanelProps {
 export function SearchPanel({ booking, today }: SearchPanelProps) {
   const { activeTab, forms, updateForm, issues, status } = booking;
   const loading = status === "loading";
-  const errorId = issues.length > 0 ? "booking-issues" : undefined;
+  const errorId = issues.some((issue) => issue.field === "dates")
+    ? "booking-issues"
+    : undefined;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,7 +85,7 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
             className="mt-4 space-y-1 rounded-2xl bg-sand px-4 py-3 text-sm font-medium text-ink"
           >
             {issues.map((issue) => (
-              <li key={issue}>{issue}</li>
+              <li key={issue.message}>{issue.message}</li>
             ))}
           </ul>
         ) : null}
