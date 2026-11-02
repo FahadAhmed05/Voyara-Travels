@@ -1,5 +1,6 @@
 import { RevealScope } from "@/components/motion/RevealScope";
 import { Container } from "@/components/ui/Container";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { marqueePlaces } from "@/data/story";
 
 function PlaceList({ hidden }: { hidden?: boolean }) {
@@ -23,17 +24,15 @@ function PlaceList({ hidden }: { hidden?: boolean }) {
 export function HassleStrip() {
   return (
     <section
+      id="hassle"
       aria-labelledby="hassle-title"
       className="overflow-hidden bg-white py-24 md:py-32"
     >
       <RevealScope>
         <Container className="text-center">
-          <p data-reveal className="eyebrow text-teal-dark">
-            Chapter 02 — The Hassle
-          </p>
+          <Eyebrow>Chapter 02 — The Hassle</Eyebrow>
           <h2
             id="hassle-title"
-            data-reveal
             className="mx-auto mt-4 max-w-3xl text-section italic"
           >
             Planning a trip shouldn&rsquo;t feel like a second job.

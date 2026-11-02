@@ -1,6 +1,7 @@
 import { RevealScope } from "@/components/motion/RevealScope";
 import { Clock, Mail, MapPin, Phone, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { site } from "@/data/site";
 
@@ -32,17 +33,17 @@ export function ContactSection() {
     >
       <RevealScope>
         <Container className="grid gap-12 lg:grid-cols-5 lg:gap-16">
-          <div data-reveal className="lg:col-span-2">
-            <p className="eyebrow text-teal-dark">Chapter 06 — The Departure</p>
+          <div className="lg:col-span-2">
+            <Eyebrow>Chapter 06 — The Departure</Eyebrow>
             <h2 id="contact-title" className="mt-3 text-section">
               Let&rsquo;s talk about your trip.
             </h2>
-            <p className="mt-4 text-lg">
+            <p data-reveal className="mt-4 text-lg">
               Tell us a little, or a lot. A real person reads every note and
               replies within one working day.
             </p>
 
-            <ul className="mt-10 space-y-6">
+            <ul data-reveal className="mt-10 space-y-6">
               {details.map(({ icon: Icon, label, value, href }) => (
                 <li key={label} className="flex items-start gap-4">
                   <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-teal shadow-soft">

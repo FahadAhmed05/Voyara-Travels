@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useStartBooking } from "@/hooks/useStartBooking";
 
@@ -14,14 +15,13 @@ export function CtaBanner() {
   return (
     <section
       ref={scope}
+      id="departure"
       aria-labelledby="cta-title"
       className="bg-gradient-to-br from-teal-dark via-teal to-teal-dark py-24 defer-render [--defer-h:440px] md:py-28"
     >
       <Container className="text-center">
-        <p data-reveal className="eyebrow text-on-dark">
-          Chapter 06 — The Departure
-        </p>
-        <h2 id="cta-title" data-reveal className="mt-3 text-section text-white">
+        <Eyebrow tone="light">Chapter 06 — The Departure</Eyebrow>
+        <h2 id="cta-title" className="mt-3 text-section text-white">
           Your story starts here.
         </h2>
         <p data-reveal className="mx-auto mt-4 max-w-xl text-lg text-on-dark">

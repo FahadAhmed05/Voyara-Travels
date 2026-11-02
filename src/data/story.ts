@@ -49,3 +49,16 @@ export const stats: Stat[] = [
   { value: 15, suffix: "", decimals: 0, label: "Years of Service" },
   { value: 4.9, suffix: "", decimals: 1, label: "Average Rating" },
 ];
+
+/** Chapter markers: the label swaps as the section crosses viewport centre. */
+export const chapters: { id: string; label: string }[] = [
+  { id: "home", label: "Chapter 01 — The Dream" },
+  { id: "hassle", label: "Chapter 02 — The Hassle" },
+  { id: "services", label: "Chapter 03 — The Guide" },
+  { id: "destinations", label: "Chapter 01 — The Dream, continued" },
+  { id: "plan", label: "Chapter 04 — The Plan" },
+  { id: "proof", label: "Chapter 05 — The Proof" },
+  { id: "stories", label: "Chapter 05 — Their Stories" },
+  { id: "departure", label: "Chapter 06 — The Departure" },
+  { id: "contact", label: "Chapter 06 — The Departure" },
+];

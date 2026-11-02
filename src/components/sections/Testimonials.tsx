@@ -64,7 +64,10 @@ export function Testimonials() {
               data-reveal
               className="rounded-3xl bg-ink p-8 shadow-lift md:p-12 lg:col-span-3"
             >
-              <blockquote className="font-display text-2xl leading-snug text-white italic md:text-3xl">
+              <blockquote
+                data-split
+                className="font-display text-2xl leading-snug text-white italic md:text-3xl"
+              >
                 &ldquo;{featured.quote}&rdquo;
               </blockquote>
               <Traveller testimonial={featured} index={0} dark />

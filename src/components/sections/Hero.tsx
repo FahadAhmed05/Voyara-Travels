@@ -21,7 +21,8 @@ export function Hero({ children }: { children: ReactNode }) {
         id="home"
         className="relative flex min-h-[100svh] items-end overflow-hidden bg-gradient-to-br from-ink via-teal-dark to-teal pt-32 pb-32 md:pb-40"
       >
-        <div data-hero="bg" className="absolute inset-0">
+        {/* Oversized so the pinned push-in never exposes the edges. */}
+        <div data-hero="bg" className="absolute inset-x-0 -top-[13%] h-[126%]">
           <Image
             src={unsplash("1573843981267-be1999ff37cd")}
             alt="Aerial view of overwater villas and a long jetty on a turquoise Maldivian lagoon"

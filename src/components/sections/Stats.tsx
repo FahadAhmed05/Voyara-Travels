@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { Container } from "@/components/ui/Container";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { stats } from "@/data/story";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { formatNumber } from "@/lib/format";
@@ -51,19 +52,14 @@ export function Stats() {
   return (
     <section
       ref={scope}
+      id="proof"
       aria-labelledby="stats-title"
       className="bg-ink py-24 md:py-28"
     >
       <Container>
         <div className="text-center">
-          <p data-reveal className="eyebrow text-gold">
-            Chapter 05 — The Proof
-          </p>
-          <h2
-            id="stats-title"
-            data-reveal
-            className="mt-3 text-section text-white"
-          >
+          <Eyebrow tone="gold">Chapter 05 — The Proof</Eyebrow>
+          <h2 id="stats-title" className="mt-3 text-section text-white">
             Numbers we&rsquo;re proud of — and still counting.
           </h2>
         </div>

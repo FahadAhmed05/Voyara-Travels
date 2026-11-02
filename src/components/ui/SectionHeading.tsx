@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
@@ -22,16 +23,13 @@ export function SectionHeading({
   const dark = tone === "dark";
   return (
     <div
-      data-reveal
       className={cn(
         "max-w-2xl",
         align === "center" && "mx-auto text-center",
         className,
       )}
     >
-      <p className={cn("eyebrow", dark ? "text-gold" : "text-teal-dark")}>
-        {eyebrow}
-      </p>
+      <Eyebrow tone={dark ? "gold" : "teal"}>{eyebrow}</Eyebrow>
       <h2
         id={titleId}
         className={cn("mt-3 text-section", dark && "text-white")}
@@ -39,7 +37,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description ? (
-        <p className={cn("mt-4 text-lg", dark && "text-on-dark")}>
+        <p data-reveal className={cn("mt-4 text-lg", dark && "text-on-dark")}>
           {description}
         </p>
       ) : null}

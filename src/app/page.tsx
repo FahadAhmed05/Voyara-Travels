@@ -1,3 +1,4 @@
+import { ChapterProgress } from "@/components/layout/ChapterProgress";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BookingSearch } from "@/components/sections/BookingSearch";
@@ -21,6 +22,7 @@ export default function Home() {
         Skip to content
       </a>
       <Navbar />
+      <ChapterProgress />
       <main id="main" className="flex-1">
         <Hero>
           <BookingSearch />
