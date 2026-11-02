@@ -3,6 +3,7 @@ import { visas } from "@/data/visas";
 import {
   applyProcessing,
   createDefaultForms,
+  daysBetween,
   resultsHeading,
   runSearch,
   validateForm,
@@ -137,5 +138,16 @@ describe("applyProcessing", () => {
 
   it("halves the days (rounded up) and multiplies the fee by 1.5 for express", () => {
     expect(applyProcessing(uae, "Express")).toEqual({ days: 3, fee: 27750 });
+  });
+});
+
+describe("daysBetween", () => {
+  it("counts whole nights between two dates", () => {
+    expect(daysBetween("2026-11-09", "2026-11-12")).toBe(3);
+  });
+
+  it("never returns less than the minimum and falls back when blank", () => {
+    expect(daysBetween("2026-11-09", "2026-11-09")).toBe(1);
+    expect(daysBetween("", "2026-11-09", 1, 2)).toBe(2);
   });
 });

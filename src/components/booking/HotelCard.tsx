@@ -6,13 +6,16 @@ import {
 } from "@/components/booking/ResultCard";
 import { PriceTag } from "@/components/ui/PriceTag";
 import { RatingStars } from "@/components/ui/RatingStars";
+import { formatPKR, pluralise } from "@/lib/format";
 import type { Hotel } from "@/types";
 
 interface HotelCardProps extends CardActionProps {
   hotel: Hotel;
+  nights: number;
+  rooms: number;
 }
 
-export function HotelCard({ hotel, ...action }: HotelCardProps) {
+export function HotelCard({ hotel, nights, rooms, ...action }: HotelCardProps) {
   return (
     <ResultCard
       {...action}
@@ -29,7 +32,18 @@ export function HotelCard({ hotel, ...action }: HotelCardProps) {
           ) : null}
         </>
       }
-      price={<PriceTag amount={hotel.pricePerNight} suffix="per night" />}
+      price={
+        <div>
+          <PriceTag
+            amount={hotel.pricePerNight * nights * rooms}
+            suffix={`total · ${pluralise(nights, "night")}`}
+          />
+          <p className="text-xs">
+            {formatPKR(hotel.pricePerNight)} × {pluralise(nights, "night")}
+            {rooms > 1 ? ` × ${pluralise(rooms, "room")}` : ""}, all-in
+          </p>
+        </div>
+      }
     >
       <p className="flex items-center gap-2 text-sm">
         <RatingStars rating={hotel.rating} />

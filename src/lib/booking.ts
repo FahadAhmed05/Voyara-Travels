@@ -35,6 +35,22 @@ function daysFrom(today: string, offset: number): string {
   return toISODate(new Date(base.getTime() + offset * DAY_MS));
 }
 
+/** Whole days between two ISO dates, at least `min`; `fallback` if either is blank. */
+export function daysBetween(
+  from: string,
+  to: string,
+  min = 1,
+  fallback = 1,
+): number {
+  if (!from || !to) return fallback;
+  const span = Math.round(
+    (new Date(`${to}T12:00:00`).getTime() -
+      new Date(`${from}T12:00:00`).getTime()) /
+      DAY_MS,
+  );
+  return Math.max(min, span);
+}
+
 /** `today` is "" before the client knows the date, which leaves dates blank. */
 export function createDefaultForms(today: string): BookingForms {
   return {

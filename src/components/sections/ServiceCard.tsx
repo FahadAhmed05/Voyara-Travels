@@ -35,7 +35,7 @@ export function ServiceCard({
       </div>
 
       <div className="flex flex-1 flex-col px-6 pb-6">
-        <span className="-mt-7 grid size-14 place-items-center rounded-2xl bg-teal text-white shadow-soft">
+        <span className="relative z-10 -mt-7 grid size-14 place-items-center rounded-2xl bg-teal text-white shadow-soft">
           <Icon className="size-7" aria-hidden="true" />
         </span>
         <h3 className="mt-4 line-clamp-2 text-2xl font-semibold">

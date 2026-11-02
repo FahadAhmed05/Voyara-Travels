@@ -3,7 +3,7 @@ import { EmptyResults } from "@/components/booking/EmptyResults";
 import { FlightCard } from "@/components/booking/FlightCard";
 import { HotelCard } from "@/components/booking/HotelCard";
 import { VisaCard } from "@/components/booking/VisaCard";
-import { resultsHeading } from "@/lib/booking";
+import { daysBetween, resultsHeading } from "@/lib/booking";
 import type { SearchOutcome } from "@/types";
 
 interface ResultsGridProps {
@@ -29,7 +29,10 @@ export function ResultsGrid({
       <h2 className="font-display text-2xl font-semibold text-ink md:text-3xl">
         {resultsHeading(outcome)}
       </h2>
-      <p className="mt-1 text-sm">Demo data — no real booking is made.</p>
+      <p className="mt-1 text-sm">
+        Demo data — no real booking is made. Every price is the total for your
+        party, in PKR.
+      </p>
 
       {outcome.items.length === 0 ? (
         <EmptyResults tab={outcome.tab} onReset={onReset} />
@@ -48,12 +51,30 @@ export function ResultsGrid({
           : null}
         {outcome.tab === "hotels"
           ? outcome.items.map((hotel) => (
-              <HotelCard key={hotel.id} hotel={hotel} {...action(hotel.id)} />
+              <HotelCard
+                key={hotel.id}
+                hotel={hotel}
+                nights={daysBetween(
+                  outcome.form.checkIn,
+                  outcome.form.checkOut,
+                )}
+                rooms={outcome.form.rooms}
+                {...action(hotel.id)}
+              />
             ))
           : null}
         {outcome.tab === "cars"
           ? outcome.items.map((car) => (
-              <CarCard key={car.id} car={car} {...action(car.id)} />
+              <CarCard
+                key={car.id}
+                car={car}
+                days={daysBetween(
+                  outcome.form.pickupDate,
+                  outcome.form.dropoffDate,
+                  1,
+                )}
+                {...action(car.id)}
+              />
             ))
           : null}
         {outcome.tab === "visa"

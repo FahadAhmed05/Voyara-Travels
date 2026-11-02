@@ -5,13 +5,15 @@ import {
   type CardActionProps,
 } from "@/components/booking/ResultCard";
 import { PriceTag } from "@/components/ui/PriceTag";
+import { formatPKR, pluralise } from "@/lib/format";
 import type { Car } from "@/types";
 
 interface CarCardProps extends CardActionProps {
   car: Car;
+  days: number;
 }
 
-export function CarCard({ car, ...action }: CarCardProps) {
+export function CarCard({ car, days, ...action }: CarCardProps) {
   return (
     <ResultCard
       {...action}
@@ -29,7 +31,17 @@ export function CarCard({ car, ...action }: CarCardProps) {
           ) : null}
         </>
       }
-      price={<PriceTag amount={car.pricePerDay} suffix="per day" />}
+      price={
+        <div>
+          <PriceTag
+            amount={car.pricePerDay * days}
+            suffix={`total · ${pluralise(days, "day")}`}
+          />
+          <p className="text-xs">
+            {formatPKR(car.pricePerDay)} × {pluralise(days, "day")}, all-in
+          </p>
+        </div>
+      }
     />
   );
 }
