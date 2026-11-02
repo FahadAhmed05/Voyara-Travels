@@ -3,11 +3,10 @@
 import { useCallback } from "react";
 import { useLenis } from "lenis/react";
 
-const NAVBAR_OFFSET = -80;
-
 /**
  * Scrolls to an in-page anchor. Uses Lenis when it is mounted and falls back
  * to an instant native jump (reduced-motion users render without Lenis).
+ * Both paths clear the sticky navbar through the global `[id]` scroll-margin.
  */
 export function useScrollTo() {
   const lenis = useLenis();
@@ -17,7 +16,7 @@ export function useScrollTo() {
       const target = document.querySelector<HTMLElement>(hash);
       if (!target) return;
       if (lenis) {
-        lenis.scrollTo(target, { offset: NAVBAR_OFFSET, force: true });
+        lenis.scrollTo(target, { force: true });
       } else {
         target.scrollIntoView({ behavior: "auto", block: "start" });
       }
