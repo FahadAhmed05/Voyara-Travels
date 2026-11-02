@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTripPlan } from "@/hooks/useTripPlan";
 import { createDefaultForms, runSearch, validateForm } from "@/lib/booking";
+import { onBookingIntent } from "@/lib/booking-intent";
 import type { BookingForms, SearchOutcome, SearchStatus, TabId } from "@/types";
 
 const SEARCH_DELAY_MS = 600;
@@ -30,6 +31,15 @@ export function useBookingSearch(today: string) {
       }));
     },
     [],
+  );
+
+  useEffect(
+    () =>
+      onBookingIntent(({ tab, destination }) => {
+        setActiveTab(tab);
+        if (destination) updateForm("hotels", { destination });
+      }),
+    [updateForm],
   );
 
   const search = useCallback(() => {

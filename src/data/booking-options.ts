@@ -74,3 +74,9 @@ export const bookingTabs = [
   { id: "cars", label: "Cars" },
   { id: "visa", label: "Visa" },
 ] as const;
+
+/** Hotel city to pre-select when a destination card is chosen. */
+export const destinationHotelCity: Record<string, string> = {
+  "dest-maldives": "Malé",
+  "dest-hunza": "Hunza",
+};
