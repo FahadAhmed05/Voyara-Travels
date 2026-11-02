@@ -10,15 +10,19 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useStartBooking } from "@/hooks/useStartBooking";
 import { gsap, MOTION_OK, ScrollTrigger, TABLET_UP, useGSAP } from "@/lib/gsap";
 
+const WIDE = {
+  className: "lg:col-span-2 aspect-[4/3] lg:aspect-[16/10]",
+  sizes:
+    "(min-width: 1280px) 640px, (min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw",
+};
+const NARROW = {
+  className: "aspect-[4/5]",
+  sizes:
+    "(min-width: 1280px) 320px, (min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw",
+};
+
 /** Editorial rhythm on a 4-column grid: wide, narrow, narrow / narrow, wide, narrow. */
-const layout = [
-  "lg:col-span-2 aspect-[4/3] lg:aspect-[16/10]",
-  "aspect-[4/5]",
-  "aspect-[4/5]",
-  "aspect-[4/5]",
-  "lg:col-span-2 aspect-[4/3] lg:aspect-[16/10]",
-  "aspect-[4/5]",
-];
+const layout = [WIDE, NARROW, NARROW, NARROW, WIDE, NARROW];
 
 export function Destinations() {
   const startBooking = useStartBooking();
@@ -98,7 +102,8 @@ export function Destinations() {
             <DestinationCard
               key={destination.id}
               destination={destination}
-              className={layout[index % layout.length]}
+              className={layout[index % layout.length].className}
+              sizes={layout[index % layout.length].sizes}
               parallax={index === 0}
               onSelect={() =>
                 startBooking({

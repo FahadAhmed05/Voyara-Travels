@@ -8,6 +8,8 @@ interface DestinationCardProps {
   destination: Destination;
   /** Layout classes: column span and aspect ratio. */
   className?: string;
+  /** `sizes` for the photo, matching the column span in the grid. */
+  sizes: string;
   /** Lets the photo drift inside its frame (set up by the parent section). */
   parallax?: boolean;
   onSelect: () => void;
@@ -16,6 +18,7 @@ interface DestinationCardProps {
 export function DestinationCard({
   destination,
   className,
+  sizes,
   parallax,
   onSelect,
 }: DestinationCardProps) {
@@ -39,7 +42,7 @@ export function DestinationCard({
             src={destination.image}
             alt={destination.alt}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes={sizes}
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
@@ -52,7 +55,7 @@ export function DestinationCard({
 
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-white">
         <div>
-          <h3 className="text-3xl font-semibold text-white">
+          <h3 className="line-clamp-2 text-3xl font-semibold break-words text-white">
             {destination.name}
           </h3>
           <p className="text-sm text-on-dark">{destination.country}</p>
@@ -73,7 +76,7 @@ export function DestinationCard({
         type="button"
         onClick={onSelect}
         aria-label={`Plan a stay in ${destination.name}`}
-        className="absolute inset-0 z-10 rounded-3xl"
+        className="absolute inset-0 z-10 rounded-3xl focus-visible:outline-offset-[-6px]"
       />
     </article>
   );

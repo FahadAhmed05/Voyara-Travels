@@ -8,6 +8,7 @@ import "./globals.css";
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -17,12 +18,17 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Vercel injects the production hostname at build time; fall back for local runs.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 const title = "Voyara Travels — Visas, Flights, Hotels & Car Rental";
 const description =
   "Your journey, planned with care. Voyara handles visas, flight tickets, hotels and car rental so you can focus on the trip itself.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://voyara-travels.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: { default: title, template: "%s | Voyara Travels" },
   description,
   keywords: [
