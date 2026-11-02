@@ -1,4 +1,5 @@
-import { Search } from "lucide-react";
+import type { FormEvent } from "react";
+import { LoaderCircle, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CarFields } from "@/components/booking/CarFields";
 import { FlightFields } from "@/components/booking/FlightFields";
@@ -15,18 +16,24 @@ interface SearchPanelProps {
 }
 
 export function SearchPanel({ booking, today }: SearchPanelProps) {
-  const { activeTab, forms, updateForm } = booking;
+  const { activeTab, forms, updateForm, status } = booking;
+  const loading = status === "loading";
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    booking.search();
+  };
 
   return (
     <div className="rounded-3xl bg-white p-6 shadow-[0_30px_60px_-25px_rgba(12,36,49,0.35)] md:p-8">
       <SearchTabs
         active={activeTab}
-        disabled={false}
+        disabled={loading}
         onChange={booking.setActiveTab}
       />
 
-      <form noValidate className="mt-6">
-        <fieldset className="min-w-0">
+      <form onSubmit={handleSubmit} noValidate className="mt-6">
+        <fieldset disabled={loading} className="min-w-0">
           <legend className="sr-only">Trip details</legend>
           <div
             key={activeTab}
@@ -65,9 +72,26 @@ export function SearchPanel({ booking, today }: SearchPanelProps) {
           </div>
         </fieldset>
 
-        <Button size="lg" className="mt-6 w-full sm:w-auto">
-          <Search className="size-5" aria-hidden="true" />
-          Begin your journey
+        <Button
+          type="submit"
+          size="lg"
+          disabled={loading}
+          className="mt-6 w-full sm:w-auto"
+        >
+          {loading ? (
+            <>
+              <LoaderCircle
+                className="size-5 animate-spin"
+                aria-hidden="true"
+              />
+              Searching…
+            </>
+          ) : (
+            <>
+              <Search className="size-5" aria-hidden="true" />
+              Begin your journey
+            </>
+          )}
         </Button>
       </form>
     </div>
