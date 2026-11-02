@@ -15,13 +15,11 @@ function normalise(value: string): string {
   return value.trim().toLowerCase();
 }
 
-/** True when the criterion is absent, blank or "Any", i.e. it should not filter. */
-function isUnset(criterion: string | undefined): criterion is undefined {
-  return criterion === undefined || ["", ANY].includes(normalise(criterion));
-}
-
+/** A criterion that is absent, blank or "Any" does not filter. */
 function matches(value: string, criterion: string | undefined): boolean {
-  return isUnset(criterion) || normalise(value) === normalise(criterion);
+  if (criterion === undefined) return true;
+  const wanted = normalise(criterion);
+  return wanted === "" || wanted === ANY || normalise(value) === wanted;
 }
 
 export function filterFlights(
