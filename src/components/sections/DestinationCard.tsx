@@ -42,6 +42,7 @@ export function DestinationCard({
             src={destination.image}
             alt={destination.alt}
             fill
+            quality={72}
             sizes={sizes}
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />

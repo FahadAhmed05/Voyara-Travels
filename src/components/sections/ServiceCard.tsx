@@ -28,7 +28,8 @@ export function ServiceCard({
           src={service.image}
           alt={service.alt}
           fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          quality={72}
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
           className="object-cover"
         />
       </div>

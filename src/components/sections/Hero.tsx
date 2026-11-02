@@ -26,7 +26,9 @@ export function Hero({ children }: { children: ReactNode }) {
             src={unsplash("1573843981267-be1999ff37cd")}
             alt="Aerial view of overwater villas and a long jetty on a turquoise Maldivian lagoon"
             fill
+            quality={72}
             priority
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover"
           />
