@@ -1,18 +1,12 @@
-import type { ComponentPropsWithoutRef, ElementType } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-type ContainerProps<T extends ElementType> = {
-  as?: T;
-} & Omit<ComponentPropsWithoutRef<T>, "as">;
-
-export function Container<T extends ElementType = "div">({
-  as,
+export function Container({
   className,
   ...props
-}: ContainerProps<T>) {
-  const Component: ElementType = as ?? "div";
+}: ComponentPropsWithoutRef<"div">) {
   return (
-    <Component
+    <div
       className={cn("mx-auto w-full max-w-7xl px-5 md:px-8", className)}
       {...props}
     />
