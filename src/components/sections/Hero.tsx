@@ -41,11 +41,11 @@ export function Hero({ children }: { children: ReactNode }) {
         {/* Where the page-wide Earth sits while the hero is on screen. */}
         <div
           data-earth-anchor="hero"
-          className="pointer-events-none absolute top-[46%] right-[3%] z-0 aspect-square w-[min(44vw,560px)] -translate-y-1/2 max-md:hidden"
+          className="pointer-events-none absolute top-[26%] left-1/2 z-0 aspect-square w-[min(62vw,300px)] -translate-x-1/2 -translate-y-1/2 min-[1500px]:right-[7%] md:top-[46%] md:right-[3%] md:left-auto md:w-[min(44vw,560px,64vh)] md:translate-x-0 [@media(max-width:767px)_and_(max-height:699px)]:hidden"
         />
         <p
           data-earth-hud
-          className="pointer-events-none absolute right-[3%] bottom-36 z-10 w-[min(44vw,560px)] text-center text-[11px] font-bold tracking-[0.2em] text-on-dark uppercase max-md:hidden md:bottom-44"
+          className="pointer-events-none absolute right-[3%] bottom-36 z-10 w-[min(44vw,560px,64vh)] text-center text-[11px] font-bold tracking-[0.2em] text-on-dark uppercase max-md:hidden min-[1500px]:right-[7%] md:bottom-44"
         >
           Karachi → the world · pick a destination
         </p>
@@ -57,13 +57,16 @@ export function Hero({ children }: { children: ReactNode }) {
             </span>{" "}
             Rated 4.9 by 12,000+ travellers
           </p>
-          <h1 data-hero="title" className="mt-5 max-w-3xl text-hero text-white">
+          <h1
+            data-hero="title"
+            className="mt-5 max-w-3xl text-hero text-white md:max-w-[48%] lg:max-w-3xl lg:[font-size:clamp(2.75rem,min(6vw,calc((52vw_-_5rem)/9.4)),4.75rem)]"
+          >
             The world is waiting.{" "}
             <span className="block text-gold italic">Go beautifully.</span>
           </h1>
           <p
             data-hero="sub"
-            className="mt-6 max-w-xl text-lg text-on-dark md:text-xl"
+            className="mt-6 max-w-xl text-lg text-on-dark md:max-w-[min(36rem,46vw)] md:text-xl"
           >
             Tell us where your heart is pointing — we&rsquo;ll handle every
             visa, flight, hotel and mile between here and there.

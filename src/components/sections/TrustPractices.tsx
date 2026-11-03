@@ -67,7 +67,7 @@ export function TrustPractices() {
             Visit us at {site.address}, or call{" "}
             <a
               href={site.phoneHref}
-              className="font-semibold text-teal-dark underline-offset-4 hover:underline"
+              className="inline-flex min-h-11 items-center font-semibold text-teal-dark underline-offset-4 hover:underline"
             >
               {site.phone}
             </a>

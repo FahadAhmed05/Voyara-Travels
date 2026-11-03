@@ -1,11 +1,12 @@
 "use client";
 
 import type { RefObject } from "react";
-import { gsap, SplitText, TABLET_UP, useGSAP } from "@/lib/gsap";
+import { gsap, MOTION_OK, SplitText, TABLET_UP, useGSAP } from "@/lib/gsap";
 
 /**
  * The hero's load-in and its scroll "camera". Both only run from tablet width
- * up, with motion allowed: on phones (where mobile LCP matters most) and under
+ * up, with motion allowed. On phones (where mobile LCP matters most) the text
+ * is never hidden: only the photo settles and the scroll camera runs. Under
  * reduced motion the hero is simply there from the first paint. Nothing pins
  * the page, and the booking card is never hidden.
  * Expects `scope` to contain #home and data-hero="bg|eyebrow|title|sub|cue".
@@ -27,6 +28,27 @@ export function useHeroIntro(scope: RefObject<HTMLElement | null>) {
       if (!eyebrow || !title || !sub || !cue) return;
 
       const mm = gsap.matchMedia();
+
+      mm.add(`(max-width: 767px) and ${MOTION_OK}`, () => {
+        gsap.fromTo(
+          image,
+          { scale: 1.15 },
+          { scale: 1, duration: 1.8, ease: "power2.out" },
+        );
+        gsap
+          .timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom top",
+              scrub: 1,
+            },
+          })
+          .to(bg, { yPercent: 12, scale: 1.08, duration: 1 }, 0)
+          .to(cue, { opacity: 0, duration: 0.15 }, 0)
+          .to(title, { yPercent: -10, opacity: 0.35, duration: 1 }, 0);
+      });
 
       mm.add(TABLET_UP, (_context, contextSafe) => {
         let cancelled = false;

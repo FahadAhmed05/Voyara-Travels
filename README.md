@@ -4,27 +4,27 @@ Voyara is a premium travel-agency website for four services — **Visa Services,
 
 **The idea:** the page follows the StoryBrand spine — the _traveller_ is the hero and Voyara is the guide: The Dream → The Hassle → The Guide → The Plan → Proof → The Departure. Section eyebrows are chapter markers ("Chapter 03 — The Guide"), and motion marks each chapter turn instead of decorating at random.
 
-- **Live demo:** _add the Vercel URL here after the first deploy_
+- **Live demo:** https://voyaratravel-rho.vercel.app/
 - **Repository:** https://github.com/FahadAhmed05/Voyara-Travels
 
 ## Features at a glance
 
 Mapped 1:1 to the brief's mandatory requirements.
 
-| Requirement                       | Where it lives                                                                                                                                                              | Status |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| Responsive (mobile → desktop)     | Mobile-first Tailwind layouts, checked at 360 / 768 / 1440 px with no horizontal scroll; hero + booking card overlap holds on mobile; the pinned Plan scene is desktop-only | ✅     |
-| Functional search forms           | One tabbed card (Flights · Hotels · Cars · Visa), per-tab fields, 600 ms loading state, results grid, validation, empty state, "add to trip plan" confirmation with toast   | ✅     |
-| Service cards                     | `Services` — four cards with benefit copy, bullets, "from PKR …" prices computed from the data, and an Explore action that opens the matching booking tab                   | ✅     |
-| Popular destinations              | `Destinations` — editorial asymmetric grid; a card opens the Hotels tab with that destination pre-selected                                                                  | ✅     |
-| Testimonials                      | `Testimonials` — one featured story plus two cards, specific rather than generic quotes                                                                                     | ✅     |
-| Contact + footer                  | `ContactSection` (validated form, success panel thanks you by first name), `Footer` (links, socials, newsletter with its own success state)                                 | ✅     |
-| GSAP: scroll reveals              | Every `[data-reveal]` lifts in once, batched with a stagger                                                                                                                 | ✅     |
-| GSAP: hero animation              | `SplitText` masked line reveal inside one timeline (bg settle → eyebrow → headline → sub → card → cue) plus background parallax                                             | ✅     |
-| GSAP: counters                    | Stats count up once with en-PK grouping (12,000+, 4.9)                                                                                                                      | ✅     |
-| GSAP: hover effects               | Card lift and image zoom (CSS transform/opacity), stepper and tab micro-interactions                                                                                        | ✅     |
-| Reusable components, clean layout | `ui/` primitives, `booking/` widget parts, `sections/` page chapters, data and logic kept out of components (see structure below)                                           | ✅     |
-| Extras                            | Pinned "Plan" scene (desktop), smooth scrolling via Lenis, full reduced-motion support, skip link, generated Open Graph image                                               | ✅     |
+| Requirement                       | Where it lives                                                                                                                                                                                                                                                                                                      | Status |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Responsive (mobile → desktop)     | Mobile-first Tailwind layouts, swept every 10px from 320 to 1920 px plus 2560 px, landscape phones and tablets: no horizontal scroll, clipped text or content leaving its card; the pinned Plan scene is desktop-only                                                                                               | ✅     |
+| Functional search forms           | One tabbed card (Flights · Hotels · Cars · Visa), per-tab fields, 600 ms loading state, results grid, validation, empty state, "add to trip plan" confirmation with toast                                                                                                                                           | ✅     |
+| Service cards                     | `Services` — four cards with benefit copy, bullets, "from PKR …" prices computed from the data, and an Explore action that opens the matching booking tab                                                                                                                                                           | ✅     |
+| Popular destinations              | `Destinations` — editorial asymmetric grid; a card opens the Hotels tab with that destination pre-selected                                                                                                                                                                                                          | ✅     |
+| Testimonials                      | `Testimonials` — one featured story plus two cards, specific rather than generic quotes                                                                                                                                                                                                                             | ✅     |
+| Contact + footer                  | `ContactSection` (validated form, success panel thanks you by first name), `Footer` (links, socials, newsletter with its own success state)                                                                                                                                                                         | ✅     |
+| GSAP: scroll reveals              | Every `[data-reveal]` lifts in once, batched with a stagger                                                                                                                                                                                                                                                         | ✅     |
+| GSAP: hero animation              | `SplitText` masked line reveal (photo settle → eyebrow → headline → sub → cue), then a scroll camera: the photo drifts and the headline peels away at two speeds. Phones keep the text visible from the first paint and get the photo settle, scroll camera and a small Earth with drawing routes                   | ✅     |
+| GSAP: counters                    | Stats count up once with en-PK grouping (12,000+, 4.9)                                                                                                                                                                                                                                                              | ✅     |
+| GSAP: hover effects               | Service and destination cards lift and their photos zoom on hover (pointer devices only, transform/opacity), plus stepper and tab micro-interactions                                                                                                                                                                | ✅     |
+| Reusable components, clean layout | `ui/` primitives, `booking/` widget parts, `sections/` page chapters, data and logic kept out of components (see structure below)                                                                                                                                                                                   | ✅     |
+| Extras                            | A dotted Earth with Voyara's routes that follows the reader into a flight-tracker strip, pinned "Plan" scene (desktop), chapter transitions, an evidence-based "Proof you can check" section (see docs/RESEARCH.md), smooth scrolling via Lenis, full reduced-motion support, skip link, generated Open Graph image | ✅     |
 
 ## Tech stack
 
@@ -62,16 +62,43 @@ src/
   lib/                pure logic: search filters, booking validation, formatting, GSAP registration, cn()
   types/              shared domain, query and form types — defined once
 PLAN.md               the plan, milestones and decisions this build followed
+docs/RESEARCH.md      the evidence behind the design decisions, with its limits
 ```
 
 ## Getting started
 
-**Prerequisites:** Node.js 20.9 or newer and npm.
+**Prerequisites:** [Node.js](https://nodejs.org) 20.9 or newer (check with `node -v`), npm, and Git. No API keys or environment variables are needed — all data is mock data in `src/data`.
+
+**Run it locally**
 
 ```bash
+# 1. Get the code
+git clone https://github.com/FahadAhmed05/Voyara-Travels.git
+cd Voyara-Travels
+
+# 2. Install dependencies
 npm install
-npm run dev      # http://localhost:3000
+
+# 3. Start the dev server
+npm run dev
 ```
+
+Then open **http://localhost:3000** in your browser. The page hot-reloads as you edit.
+
+**Preview the production build** (what Vercel serves — use this for the most accurate feel of the animations and scroll):
+
+```bash
+npm run build
+npm start        # http://localhost:3000
+```
+
+**Check the code**
+
+```bash
+npm run lint && npm run typecheck && npm test
+```
+
+If port 3000 is busy, run `npm run dev -- -p 3001` (or `npm start -- -p 3001`) and open that port instead.
 
 | Script              | Purpose                               |
 | ------------------- | ------------------------------------- |
@@ -80,7 +107,7 @@ npm run dev      # http://localhost:3000
 | `npm start`         | Serve the production build            |
 | `npm run lint`      | ESLint                                |
 | `npm run typecheck` | TypeScript, no emit                   |
-| `npm test`          | Vitest unit tests (33 tests)          |
+| `npm test`          | Vitest unit tests (35 tests)          |
 | `npm run format`    | Prettier                              |
 
 ## Architecture and decisions
@@ -100,7 +127,7 @@ Sections talk to the booking card through a small typed window event (`lib/booki
 ### Animation architecture
 
 - **Scoped by construction.** Every animation sits in `useGSAP(..., { scope })` inside its own component or hook. There are no page-global selectors and no raw `useEffect` GSAP, so React StrictMode cannot double-fire anything (checked in dev: one split, one pin spacer).
-- **`gsap.matchMedia()` owns responsiveness and reduced motion.** Intro and reveals run only under `prefers-reduced-motion: no-preference`; the pinned Plan scene only at ≥ 1024 px; parallax from 768 px. matchMedia cleans up after itself on resize — there are no hand-written resize handlers.
+- **`gsap.matchMedia()` owns responsiveness and reduced motion.** Intro and reveals run only under `prefers-reduced-motion: no-preference`; the pinned Plan scene only at ≥ 1024 px; the hero scroll camera from 768 px. matchMedia cleans up after itself on resize — there are no hand-written resize handlers.
 - **Only `transform` and `opacity`.** Masked reveals use `overflow` wrappers; nothing animates width, height or position.
 - **Content works without the animation.** Initial hidden states are set with `gsap.set` _inside_ `useGSAP`, never in CSS. With JavaScript off, or with reduced motion on, every section is fully visible and Lenis is not mounted.
 - **Refresh discipline.** `ScrollRefresh` calls `ScrollTrigger.refresh()` after the window `load` event and after `document.fonts.ready`.
@@ -123,7 +150,7 @@ Measured on the production build:
 | Check                        | Result                                                                                                                |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `npm run lint` / `typecheck` | 0 errors, 0 warnings                                                                                                  |
-| `npm test`                   | 33 / 33 passing                                                                                                       |
+| `npm test`                   | 35 / 35 passing                                                                                                       |
 | Lighthouse (desktop)         | Performance 99 · Accessibility 100 · Best practices 100 · SEO 100                                                     |
 | Lighthouse (mobile)          | Performance 79 · Accessibility 100 · Best practices 100 · SEO 100 (simulated slow 4G + 4× CPU slowdown, local server) |
 | Core Web Vitals              | Desktop: LCP 0.8 s, TBT 90 ms, CLS 0. Mobile (throttled): LCP 4.2 s, TBT 310 ms, CLS 0                                |
@@ -138,7 +165,7 @@ Edge cases verified in a real browser: all four tabs with default values, imposs
 **Trade-offs made**
 
 - **Mock data only.** Search results come from 35 typed flight, hotel, car and visa records, so routes and dates are not real inventory. Dates are validated but not matched against availability.
-- **Intro vs. mobile LCP.** The hero animation is the signature moment, but it delays the first meaningful paint on slow phones. With more time I would server-render the hero lines unsplit and only enhance them, or shorten the intro on small screens.
+- **Intro vs. mobile LCP.** The SplitText headline reveal hides text until JavaScript runs, so it is tablet-and-up only; phones get motion that never hides content (photo settle, scroll camera, the Earth).
 - **Initial flash before hydration.** Hidden start states are set by GSAP, per the "content must work without JS" rule, so there is a brief moment when un-hidden content is visible before the intro starts. A tiny inline script adding a class to `<html>` would remove it at the cost of one more moving part.
 - **Photos are third-party.** Images come from Unsplash (each photo was checked against its alt text), with gradient fallbacks behind every frame. A production site would host its own licensed photography. The Hunza card uses a generic alpine photo.
 - **Forms do not send anything.** The contact and newsletter forms validate and show success states; there is nowhere to deliver them.

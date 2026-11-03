@@ -32,6 +32,7 @@ export function JourneyTracker() {
       const plane = pick("[data-plane]");
       const bank = pick("[data-bank]");
       const trail = pick("[data-trail]");
+      const turn = pick("[data-turn]");
       const clouds = gsap.utils.toArray<HTMLElement>("[data-cloud]", root);
       const fill = pick("[data-fill]");
       const track = pick("[data-track]");
@@ -42,6 +43,7 @@ export function JourneyTracker() {
       if (
         !plane ||
         !bank ||
+        !turn ||
         !trail ||
         !fill ||
         !track ||
@@ -110,13 +112,37 @@ export function JourneyTracker() {
           duration: 0.4,
           ease: "power3.out",
         });
+        // Flying down it points down; when the reader turns back it makes a
+        // U-turn (a swing to the side while it rotates) and climbs.
+        gsap.set(turn, { rotation: 180 });
+        let heading = 1;
+        const uTurn = (direction: number) => {
+          heading = direction;
+          gsap.to(turn, {
+            rotation: direction === 1 ? 180 : 0,
+            duration: 0.9,
+            ease: "power2.inOut",
+            overwrite: "auto",
+          });
+          gsap
+            .timeline()
+            .to(bank, {
+              x: direction === 1 ? 9 : -9,
+              duration: 0.45,
+              ease: "power1.out",
+            })
+            .to(bank, { x: 0, duration: 0.45, ease: "power1.in" });
+        };
         const speed = ScrollTrigger.create({
           start: 0,
           end: "max",
-          onUpdate: (self) =>
-            trailTo(
-              0.35 + Math.min(Math.abs(self.getVelocity()) / 1800, 1) * 0.65,
-            ),
+          onUpdate: (self) => {
+            const velocity = Math.abs(self.getVelocity());
+            if (self.direction !== heading && velocity > 40) {
+              uTurn(self.direction);
+            }
+            trailTo(0.35 + Math.min(velocity / 1800, 1) * 0.65);
+          },
         });
         const float = gsap.to(bank, {
           y: 2.5,
@@ -159,7 +185,7 @@ export function JourneyTracker() {
     <aside
       ref={scope}
       aria-hidden="true"
-      className="pointer-events-none fixed top-1/2 right-1 z-40 hidden h-[52vh] w-7 -translate-y-1/2 flex-col items-center gap-2 overflow-hidden rounded-full bg-ink/85 py-2 text-on-dark motion-reduce:hidden min-[1500px]:right-3 min-[1500px]:h-[58vh] min-[1500px]:w-[68px] min-[1500px]:gap-3 min-[1500px]:rounded-[2rem] min-[1500px]:px-2 min-[1500px]:py-4 md:flex"
+      className="pointer-events-none fixed top-1/2 right-1 z-40 hidden h-[52vh] w-7 -translate-y-1/2 flex-col items-center gap-2 overflow-hidden rounded-full bg-ink/85 py-2 text-on-dark min-[1500px]:right-3 min-[1500px]:h-[58vh] min-[1500px]:w-[88px] min-[1500px]:gap-3 min-[1500px]:rounded-[2rem] min-[1500px]:px-2 min-[1500px]:py-4 md:motion-safe:flex"
     >
       {[18, 68, 40, 80].map((left, i) => (
         <span
@@ -181,7 +207,7 @@ export function JourneyTracker() {
         >
           0 FT
         </p>
-        <p className="mt-1 text-[10px] font-bold tracking-[0.14em] uppercase">
+        <p className="mt-1 text-[9px] font-bold tracking-[0.1em] uppercase">
           <span data-name>The Dream</span>
         </p>
       </div>
@@ -208,18 +234,22 @@ export function JourneyTracker() {
           />
         ))}
         <span data-plane className="absolute top-0 left-1/2 -ml-3.5 w-7">
-          <span
-            data-trail
-            className="absolute bottom-[55%] left-1/2 h-14 w-[3px] origin-bottom -translate-x-1/2 rounded-full bg-gradient-to-t from-white/70 to-transparent"
-          />
           <span data-bank className="relative block">
-            <svg
-              viewBox="0 0 24 24"
-              className="size-7 rotate-180 text-white drop-shadow-[0_0_6px_rgba(201,162,75,0.8)]"
-              fill="currentColor"
-            >
-              <path d="M12 1.5c.9 0 1.6 1.1 1.6 2.7V9l8.4 4.7v2.1l-8.4-2.2v4.2l2.2 1.6V21l-3.8-1-3.8 1v-1.6l2.2-1.6v-4.2L2 15.8v-2.1L10.4 9V4.2c0-1.6.7-2.7 1.6-2.7z" />
-            </svg>
+            {/* Faces up; turned 180deg when flying down. The contrail sits
+                behind the tail, so it turns with the plane. */}
+            <span data-turn className="relative block">
+              <span
+                data-trail
+                className="absolute top-[55%] left-1/2 h-14 w-[3px] origin-top -translate-x-1/2 rounded-full bg-gradient-to-b from-white/70 to-transparent"
+              />
+              <svg
+                viewBox="0 0 24 24"
+                className="relative size-7 text-white drop-shadow-[0_0_6px_rgba(201,162,75,0.8)]"
+                fill="currentColor"
+              >
+                <path d="M12 1.5c.9 0 1.6 1.1 1.6 2.7V9l8.4 4.7v2.1l-8.4-2.2v4.2l2.2 1.6V21l-3.8-1-3.8 1v-1.6l2.2-1.6v-4.2L2 15.8v-2.1L10.4 9V4.2c0-1.6.7-2.7 1.6-2.7z" />
+              </svg>
+            </span>
           </span>
         </span>
       </div>

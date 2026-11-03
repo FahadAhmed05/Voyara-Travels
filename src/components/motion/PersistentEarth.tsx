@@ -146,10 +146,15 @@ export function PersistentEarth() {
         };
       });
 
-      // Still Earth: reduced motion, or a phone where it is not drawn at all.
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: reduce)", () => {
-        resize();
+      // Still Earth: reduced motion (any width). Hidden if the anchor is not
+      // shown, e.g. on a short phone screen.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
         const h = heroAnchor.getBoundingClientRect();
+        if (!h.width) {
+          gsap.set(box, { autoAlpha: 0 });
+          return;
+        }
+        resize();
         gsap.set(box, {
           position: "absolute",
           left: h.left,
@@ -159,17 +164,70 @@ export function PersistentEarth() {
           scale: 1,
           autoAlpha: 1,
         });
-        interactive.current = true;
-        box.style.pointerEvents = "auto";
+        interactive.current = h.width > 400;
+        box.style.pointerEvents = interactive.current ? "auto" : "none";
         view.lon = INITIAL_LON;
         view.routes = 1;
+        view.labels = h.width > 400;
         draw(0);
       });
 
-      mm.add("(max-width: 767px)", () => {
-        gsap.set(box, { autoAlpha: 0 });
-        interactive.current = false;
-      });
+      // Phones: a smaller Earth above the headline. Routes draw in, it turns
+      // with the scroll and drifts, and it fades as the hero leaves.
+      mm.add(
+        "(max-width: 767px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const h = heroAnchor.getBoundingClientRect();
+          if (!h.width) {
+            gsap.set(box, { autoAlpha: 0 });
+            return;
+          }
+          resize();
+          gsap.set(box, {
+            position: "absolute",
+            left: h.left,
+            top: h.top + window.scrollY,
+            x: 0,
+            y: 0,
+            scale: 1,
+            autoAlpha: 1,
+          });
+          interactive.current = false;
+          box.style.pointerEvents = "none";
+          view.labels = false;
+          const intro = { routes: 0 };
+          let idle = 0;
+          let scrollY = window.scrollY;
+          const tick = (time: number, delta: number) => {
+            const vh = window.innerHeight;
+            if (scrollY > vh) return;
+            idle += delta * 0.005;
+            view.lon = INITIAL_LON + scrollY * 0.09 + idle;
+            view.routes = intro.routes;
+            box.style.opacity = String(1 - clamp(scrollY / (0.7 * vh)));
+            draw(time / 1000);
+          };
+          gsap.ticker.add(tick);
+          const track = ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: (self) => {
+              scrollY = self.scroll();
+            },
+          });
+          const drawRoutes = gsap.to(intro, {
+            routes: 1,
+            duration: 2.4,
+            delay: 0.6,
+            ease: "power2.inOut",
+          });
+          return () => {
+            gsap.ticker.remove(tick);
+            track.kill();
+            drawRoutes.kill();
+          };
+        },
+      );
 
       return () => setHud("");
     },
@@ -206,7 +264,7 @@ export function PersistentEarth() {
     <div
       ref={wrap}
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-0 z-[45] max-md:hidden"
+      className="pointer-events-none fixed top-0 left-0 z-[45]"
     >
       <canvas
         ref={canvas}

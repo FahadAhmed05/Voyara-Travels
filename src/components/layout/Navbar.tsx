@@ -42,7 +42,7 @@ export function Navbar() {
         <Container className="relative flex h-20 items-center justify-between">
           <p
             data-chapter
-            className="absolute bottom-1.5 left-5 hidden text-[10px] font-bold tracking-[0.18em] text-on-dark/80 uppercase md:left-8 md:block"
+            className="absolute bottom-1.5 left-5 hidden text-[10px] font-bold tracking-[0.18em] text-on-dark/80 uppercase min-[480px]:block md:left-8"
           >
             Chapter 01 — The Dream
           </p>

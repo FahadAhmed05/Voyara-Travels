@@ -71,7 +71,9 @@ export function useBookingSearch(today: string) {
     updateForm,
     issues,
     status,
-    outcome: outcome?.tab === activeTab ? outcome : null,
+    // Results only show while the current query is valid, so what is on screen
+    // always belongs to the query in the form.
+    outcome: outcome?.tab === activeTab && issues.length === 0 ? outcome : null,
     search,
     reset,
     plan,
